@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:all_about_music/widgets/button.dart';
 import 'package:all_about_music/widgets/field.dart';
@@ -46,7 +47,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   Stack(
                     children: [
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () => context.go('/login'),
                         child: const Icon(Icons.arrow_back, color: Color(0xFFC25325)),
                       ),
                       const Align(

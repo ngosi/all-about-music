@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:all_about_music/widgets/diagonal_container.dart';
 import 'package:all_about_music/widgets/page_indicator.dart';
+import 'package:all_about_music/widgets/blur_button.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({super.key});
@@ -67,6 +69,12 @@ class _OnboardingState extends State<Onboarding> {
                 );
               },
             ),
+            SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 40).copyWith(top: 30),
+                child: BlurButton(() => context.go('/login')),
+              ),
+            ),
             const Positioned(
               bottom: 0,
               left: 0,
@@ -119,7 +127,7 @@ class _OnboardingState extends State<Onboarding> {
                                 child: Text(
                                   _onboardingText[index][0],
                                   style: const TextStyle(
-                                    fontFamily: 'Cypher',
+                                    fontFamily: 'Cypher2',
                                     fontSize: 26,
                                     color: Colors.white,
                                   ),
@@ -146,7 +154,7 @@ class _OnboardingState extends State<Onboarding> {
                     child: Text(
                       'ALLABOUTMUSIC.COM',
                       style: TextStyle(
-                        fontFamily: 'Cypher',
+                        fontFamily: 'Cypher1',
                         color: Color(0xFFBABABA),
                       ),
                     ),

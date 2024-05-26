@@ -19,34 +19,31 @@ class Button extends StatelessWidget {
           end: Alignment.bottomCenter,
         ),
       ),
-      child: Row(
-        children: [
-          Expanded(
-            child: FilledButton(
-              onPressed: onPressed,
-              style: ButtonStyle(
-                fixedSize: MaterialStateProperty.all(const Size.fromHeight(60)),
-                backgroundColor: MaterialStateProperty.all(Colors.transparent),
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(26),
-                    side: const BorderSide(
-                      color: Color(0xFF707070),
-                    ),
-                  ),
-                ),
-              ),
-              child: Text(
-                text,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'Poppins',
-                  fontSize: 16,
+      child: SizedBox(
+        width: double.infinity,
+        height: 60,
+        child: FilledButton(
+          onPressed: onPressed,
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.transparent),
+            shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(26),
+                side: const BorderSide(
+                  color: Color(0xFF707070),
                 ),
               ),
             ),
           ),
-        ],
+          child: Text(
+            text,
+            style: const TextStyle(
+              color: Colors.white,
+              fontFamily: 'Poppins',
+              fontSize: 16,
+            ),
+          ),
+        ),
       ),
     );
   }

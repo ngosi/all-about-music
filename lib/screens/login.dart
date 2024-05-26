@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:all_about_music/widgets/button.dart';
 import 'package:all_about_music/widgets/field.dart';
@@ -43,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Stack(
                     children: [
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () => context.go('/onboarding'),
                         child: const Icon(Icons.arrow_back, color: Color(0xFFC25325)),
                       ),
                       const Align(
@@ -88,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         const Spacer(),
                         Align(
                           alignment: Alignment.centerRight,
-                          child: InkWell(
+                          child: GestureDetector(
                             onTap: () {},
                             child: const Text(
                               'Forgot Password',
@@ -106,7 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   Button(() {}, 'Login'),
                   const Spacer(),
-                  Button(() {}, 'Sign Up', isOrange: false),
+                  Button(() => context.go('/signup'), 'Sign Up', isOrange: false),
                 ],
               ),
             ),

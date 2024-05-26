@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "363029929800",
+    "project_id": "all-about-music-3d4ae",
+    "storage_bucket": "all-about-music-3d4ae.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:363029929800:android:92dcfd927c68b962359d7d",
+        "android_client_info": {
+          "package_name": "com.lindstudios.all_about_music"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsn02RiRLIBTxoN8OacUoPxO4iUsqepIk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

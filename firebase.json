@@ -1,0 +1,41 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "all-about-music-3d4ae",
+          "appId": "1:363029929800:android:92dcfd927c68b962359d7d",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "all-about-music-3d4ae",
+          "configurations": {
+            "android": "1:363029929800:android:92dcfd927c68b962359d7d",
+            "ios": "1:363029929800:ios:1d7d785d3999dc5f359d7d",
+            "web": "1:363029929800:web:7fbf1e4708b1cd6a359d7d"
+          }
+        }
+      }
+    }
+  },
+  "emulators": {
+    "singleProjectMode": true,
+    "auth": {
+      "port": 9099
+    },
+    "firestore": {
+      "port": 8080
+    },
+    "storage": {
+      "port": 9199
+    },
+    "ui": {
+      "enabled": true
+    }
+  },
+  "storage": {
+    "rules": "storage.rules"
+  }
+}
