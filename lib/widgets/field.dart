@@ -24,8 +24,8 @@ class Field extends StatelessWidget {
               FieldType.phone => 'PHONE',
             },
             style: const TextStyle(
+              fontFamily: 'Cypher1',
               color: Color(0xFF959292),
-              fontSize: 16,
             ),
           ),
         ),

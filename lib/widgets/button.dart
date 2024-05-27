@@ -4,8 +4,19 @@ class Button extends StatelessWidget {
   final VoidCallback onPressed;
   final String text;
   final bool isLoading;
-  final bool isOrange;
-  const Button(this.onPressed, this.text, {super.key, this.isLoading = false, this.isOrange = true});
+  final bool fillOrange;
+  final bool borderOrange;
+  final double height;
+  const Button(
+    this.onPressed,
+    this.text, {
+      super.key,
+      this.isLoading = false,
+      this.fillOrange = true,
+      this.borderOrange = false,
+      this.height = 60,
+    }
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +24,7 @@ class Button extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(26),
         gradient: LinearGradient(
-          colors: isOrange
+          colors: fillOrange
             ? const [Color(0xFFC15324), Color(0xFF612A12)]
             : const [Color(0xFF404041), Color(0xFF252625)],
           begin: Alignment.topCenter,
@@ -22,16 +33,18 @@ class Button extends StatelessWidget {
       ),
       child: SizedBox(
         width: double.infinity,
-        height: 60,
+        height: height,
         child: FilledButton(
           onPressed: onPressed,
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(Colors.transparent),
             shape: MaterialStateProperty.all(
               RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(26),
-                side: const BorderSide(
-                  color: Color(0xFF707070),
+                borderRadius: BorderRadius.circular(height-34),
+                side: BorderSide(
+                  color: borderOrange
+                    ? const Color(0xFFE88B38)
+                    : const Color(0xFF707070),
                 ),
               ),
             ),
@@ -40,8 +53,8 @@ class Button extends StatelessWidget {
             ? const CircularProgressIndicator()
             : Text(
                 text,
-                style: const TextStyle(
-                  color: Colors.white,
+                style: TextStyle(
+                  color: borderOrange ? const Color(0xFFE88B38) : Colors.white,
                   fontFamily: 'Poppins',
                   fontSize: 16,
                 ),

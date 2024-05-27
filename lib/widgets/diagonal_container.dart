@@ -1,21 +1,40 @@
 import 'package:flutter/material.dart';
 
+import 'package:all_about_music/widgets/diagonal_container_contents.dart';
+
 class DiagonalContainer extends StatelessWidget {
   final Widget child;
+  final List<Widget>? contents;
   final double? height;
-  final BoxDecoration? decoration;
-  const DiagonalContainer({required this.child, this.height, this.decoration, super.key});
+  final BoxDecoration decoration;
+  final bool defaultBorder;
+  const DiagonalContainer({
+    this.child = const DiagonalContainerContents(),
+    this.contents,
+    this.height,
+    this.decoration = const BoxDecoration(
+      gradient: LinearGradient(
+        colors: [Color(0xFF404041), Color(0xFF0E0F0E)],
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+      ),
+    ),
+    this.defaultBorder = true,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      painter: DiagonalPainter(),
+      painter: DiagonalPainter(defaultBorder),
       child: ClipPath(
         clipper: DiagonalClipper(),
         child: Container(
           height: height,
           decoration: decoration,
-          child: child,
+          child: contents == null
+            ? child
+            : DiagonalContainerContents(contents: contents),
         ),
       ),
     );
@@ -25,7 +44,7 @@ class DiagonalContainer extends StatelessWidget {
 class DiagonalClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    var path = Path()
+    Path path = Path()
       ..lineTo(95, 86)
       ..lineTo(size.width, 86)
       ..lineTo(size.width, size.height)
@@ -42,19 +61,53 @@ class DiagonalClipper extends CustomClipper<Path> {
 }
 
 class DiagonalPainter extends CustomPainter {
+  final bool defaultBorder;
+  const DiagonalPainter(this.defaultBorder);
+
   @override
   void paint(Canvas canvas, Size size) {
-    var path = Path()
-      ..moveTo(-9.6, -8.6)
-      ..lineTo(95, 86)
-      ..lineTo(size.width, 86);
+    if (defaultBorder) {
+      Path path = Path()
+        ..moveTo(-9.6, -8.6)
+        ..lineTo(95, 86)
+        ..lineTo(size.width, 86);
+      Paint paint = Paint()
+        ..color = const Color(0xFFC25325)
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 10;
 
-    var paint = Paint()
-      ..color = const Color(0xFFC25325)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 10;
+      canvas.drawPath(path, paint);
+    } else {
+      Path path = Path()
+        ..moveTo(-3, -13)
+        ..lineTo(98, 80);
+      Paint paint = Paint()
+        ..color = const Color(0xFF707070)
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 14;
 
-    canvas.drawPath(path, paint);
+      canvas.drawPath(path, paint);
+
+      path.lineTo(size.width, 80);
+      paint.strokeWidth = 13;
+
+      canvas.drawPath(path, paint);
+
+      path = Path()
+        ..moveTo(-3, -13)
+        ..lineTo(98, 80);
+      paint = Paint()
+        ..color = const Color(0xFFE88B38)
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 11;
+
+      canvas.drawPath(path, paint);
+
+      path.lineTo(size.width, 80);
+      paint.strokeWidth = 9;
+
+      canvas.drawPath(path, paint);
+    }
   }
 
   @override

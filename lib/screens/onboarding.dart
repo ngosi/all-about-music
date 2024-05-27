@@ -81,19 +81,6 @@ class _OnboardingState extends State<Onboarding> {
               right: 0,
               child: DiagonalContainer(
                 height: 365,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Color(0xFF404041), Color(0xFF0E0F0E)],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    SizedBox(width: 24),
-                    VerticalDivider(color: Color(0xFFE88B38), thickness: .75),
-                  ],
-                ),
               ),
             ),
             Padding(

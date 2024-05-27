@@ -83,7 +83,23 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(40).copyWith(bottom: 20),
-                    child: Image.asset('assets/images/logo.png'),
+                    child: const Stack(
+                      children: [
+                        Image(image: AssetImage('assets/images/logo.png')),
+                        Positioned.fill(
+                          child: Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Text(
+                              'AllAboutMusic.com',
+                              style: TextStyle(
+                                fontFamily: 'Cypher1',
+                                color: Color(0xFF959292),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   Field(_emailController, FieldType.email),
                   Field(_passwordController, FieldType.password),
@@ -129,7 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   Button(login, 'Login', isLoading: _isLoading),
                   const Spacer(),
-                  Button(() => context.go('/signup'), 'Sign Up', isOrange: false),
+                  Button(() => context.go('/signup'), 'Sign Up', fillOrange: false),
                 ],
               ),
             ),

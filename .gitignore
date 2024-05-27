@@ -12,6 +12,7 @@
 .buildlog/
 .history
 .svn/
+emulators_data
 
 # IntelliJ related
 *.iml

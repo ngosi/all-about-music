@@ -87,8 +87,24 @@ class _SignupScreenState extends State<SignupScreen> {
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(40).copyWith(bottom: 0),
-                    child: Image.asset('assets/images/logo.png'),
+                    padding: const EdgeInsets.all(40).copyWith(bottom: 20),
+                    child: const Stack(
+                      children: [
+                        Image(image: AssetImage('assets/images/logo.png')),
+                        Positioned.fill(
+                          child: Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Text(
+                              'AllAboutMusic.com',
+                              style: TextStyle(
+                                fontFamily: 'Cypher1',
+                                color: Color(0xFF959292),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   Field(_nameController, FieldType.name),
                   Field(_phoneController, FieldType.phone),

@@ -17,6 +17,7 @@ dependencies:
   cloud_firestore: ^4.17.4
   firebase_auth: ^4.19.6
   firebase_storage: ^11.7.6
+  flutter_svg: ^2.0.10+1
 
 dev_dependencies:
   flutter_test:
@@ -33,7 +34,7 @@ flutter:
     - assets/images/onboarding2.png
     - assets/images/onboarding3.png
     - assets/images/music_cover.png
-    - assets/images/rapper_demo.png
+    - assets/images/rapper.png
     - assets/icons/gear.svg
     - assets/icons/menu.svg
 
@@ -54,3 +55,8 @@ flutter:
     - family: Montserrat
       fonts:
         - asset: assets/fonts/Montserrat-Medium.ttf
+    - family: Lato
+      fonts:
+        - asset: assets/fonts/Lato-Regular.ttf
+        - asset: assets/fonts/Lato-Bold.ttf
+        - asset: assets/fonts/Lato-Black.ttf
