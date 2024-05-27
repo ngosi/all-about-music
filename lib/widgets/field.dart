@@ -63,6 +63,7 @@ class Field extends StatelessWidget {
                   ),
                 ),
                 TextField(
+                  controller: controller,
                   keyboardType: switch (type) {
                     FieldType.email => TextInputType.emailAddress,
                     FieldType.name => TextInputType.name,

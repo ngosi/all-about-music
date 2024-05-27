@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:all_about_music/widgets/button.dart';
 import 'package:all_about_music/widgets/field.dart';
+import 'package:all_about_music/utils/auth_methods.dart' as auth;
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -14,7 +15,28 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _isLoading = false;
   bool? _rememberMe = false;
+
+  void login() async {
+    setState(() {
+      _isLoading = true;
+    });
+    String result = await auth.login(
+      email: _emailController.text,
+      password: _passwordController.text,
+    );
+    setState(() {
+      _isLoading = false;
+    });
+    if (result == 'success') {
+      context.go('/home');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(result)),
+      );
+    }
+  }
 
   @override
   void dispose() {
@@ -69,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: Row(
                       children: [
-                        Checkbox(
+                        Checkbox.adaptive(
                           visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
                           value: _rememberMe,
                           onChanged: (value) {
@@ -105,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                   ),
-                  Button(() {}, 'Login'),
+                  Button(login, 'Login', isLoading: _isLoading),
                   const Spacer(),
                   Button(() => context.go('/signup'), 'Sign Up', isOrange: false),
                 ],

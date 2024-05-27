@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class Button extends StatelessWidget {
   final VoidCallback onPressed;
   final String text;
+  final bool isLoading;
   final bool isOrange;
-  const Button(this.onPressed, this.text, {super.key, this.isOrange = true});
+  const Button(this.onPressed, this.text, {super.key, this.isLoading = false, this.isOrange = true});
 
   @override
   Widget build(BuildContext context) {
@@ -35,14 +36,16 @@ class Button extends StatelessWidget {
               ),
             ),
           ),
-          child: Text(
-            text,
-            style: const TextStyle(
-              color: Colors.white,
-              fontFamily: 'Poppins',
-              fontSize: 16,
-            ),
-          ),
+          child: isLoading
+            ? const CircularProgressIndicator()
+            : Text(
+                text,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'Poppins',
+                  fontSize: 16,
+                ),
+              ),
         ),
       ),
     );

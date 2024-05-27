@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:all_about_music/widgets/button.dart';
 import 'package:all_about_music/widgets/field.dart';
+import 'package:all_about_music/utils/auth_methods.dart' as auth;
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -12,10 +13,33 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  bool _isLoading = false;
+
+  void signUp() async {
+    setState(() {
+      _isLoading = true;
+    });
+    String result = await auth.signUp(
+      email: _emailController.text,
+      password: _passwordController.text,
+      name: _nameController.text,
+      phone: _phoneController.text,
+    );
+    setState(() {
+      _isLoading = false;
+    });
+    if (result == 'success') {
+      context.go('/home');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(result)),
+      );
+    }
+  }
 
   @override
   void dispose() {
@@ -71,7 +95,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   Field(_emailController, FieldType.email),
                   Field(_passwordController, FieldType.password),
                   const Spacer(),
-                  Button(() {}, 'Sign Up'),
+                  Button(signUp, 'Sign Up', isLoading: _isLoading),
                 ],
               ),
             ),
