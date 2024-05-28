@@ -88,8 +88,7 @@ class ProfileScreen extends StatelessWidget {
                             Expanded(
                               child: Align(
                                 alignment: Alignment.centerRight,
-                                child: SvgPicture.asset(
-                                    'assets/icons/gear.svg'),
+                                child: SvgPicture.asset('assets/icons/gear.svg'),
                               ),
                             ),
                             const SizedBox(width: 28),
@@ -106,6 +105,7 @@ class ProfileScreen extends StatelessWidget {
                       defaultBorder: false,
                       contents: [
                         const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -129,7 +129,6 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            Spacer(),
                             Image(
                               image: AssetImage('assets/images/logo.png'),
                               width: 110,

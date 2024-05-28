@@ -15,8 +15,8 @@ class SignupScreen extends StatefulWidget {
 class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
   bool _isLoading = false;
 
   void signUp() async {
@@ -26,8 +26,8 @@ class _SignupScreenState extends State<SignupScreen> {
     String result = await auth.signUp(
       email: _emailController.text,
       password: _passwordController.text,
-      name: _nameController.text,
-      phone: _phoneController.text,
+      firstName: _firstNameController.text,
+      lastName: _lastNameController.text,
     );
     setState(() {
       _isLoading = false;
@@ -44,8 +44,8 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   void dispose() {
     super.dispose();
-    _nameController.dispose();
-    _phoneController.dispose();
+    _firstNameController.dispose();
+    _lastNameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
   }
@@ -106,8 +106,8 @@ class _SignupScreenState extends State<SignupScreen> {
                       ],
                     ),
                   ),
-                  Field(_nameController, FieldType.name),
-                  Field(_phoneController, FieldType.phone),
+                  Field(_firstNameController, FieldType.firstName),
+                  Field(_lastNameController, FieldType.lastName),
                   Field(_emailController, FieldType.email),
                   Field(_passwordController, FieldType.password),
                   const Spacer(),

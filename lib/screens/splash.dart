@@ -11,19 +11,19 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  bool _signedIn = false;
+  bool _loggedIn = false;
 
   @override
   void initState() {
     super.initState();
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       setState(() {
-        _signedIn = user != null;
+        _loggedIn = user != null;
       });
     });
     Future.delayed(const Duration(seconds: 5), () {
       print(FirebaseAuth.instance.currentUser);
-      context.go(_signedIn ? '/profile' : '/onboarding');
+      context.go(_loggedIn ? '/profile' : '/onboarding');
     });
   }
 

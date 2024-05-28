@@ -1,20 +1,20 @@
 class User {
   final String uid;
   final String email;
-  final String name;
-  final String phone;
+  final String firstName;
+  final String lastName;
 
   User({
     required this.uid,
     required this.email,
-    required this.name,
-    required this.phone,
+    required this.firstName,
+    required this.lastName,
   });
 
   Map<String, dynamic> toMap() => {
     'uid': uid,
     'email': email,
-    'name': name,
-    'phone': phone,
+    'firstName': firstName,
+    'lastName': lastName,
   };
 }

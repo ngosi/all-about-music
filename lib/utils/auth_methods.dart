@@ -9,17 +9,17 @@ final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 Future<String> signUp({
   required String email,
   required String password,
-  required String name,
-  required String phone,
+  required String firstName,
+  required String lastName,
 }) async {
   try {
-    if (email.isNotEmpty || password.isNotEmpty || name.isNotEmpty || phone.isNotEmpty) {
+    if (email.isNotEmpty || password.isNotEmpty || firstName.isNotEmpty || lastName.isNotEmpty) {
       UserCredential cred = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       model.User user = model.User(
         uid: cred.user!.uid,
         email: email,
-        name: name,
-        phone: phone,
+        firstName: firstName,
+        lastName: lastName,
       );
 
       await _firestore.collection('users').doc(cred.user!.uid).set(user.toMap());

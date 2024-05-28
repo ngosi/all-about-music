@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-enum FieldType { email, password, name, phone }
+enum FieldType { email, password, firstName, lastName, phone }
 
 class Field extends StatelessWidget {
   final TextEditingController controller;
@@ -20,7 +20,8 @@ class Field extends StatelessWidget {
             switch (type) {
               FieldType.email => 'EMAIL',
               FieldType.password => 'PASSWORD',
-              FieldType.name => 'NAME',
+              FieldType.firstName => 'FIRST NAME',
+              FieldType.lastName => 'LAST NAME',
               FieldType.phone => 'PHONE',
             },
             style: const TextStyle(
@@ -66,9 +67,9 @@ class Field extends StatelessWidget {
                   controller: controller,
                   keyboardType: switch (type) {
                     FieldType.email => TextInputType.emailAddress,
-                    FieldType.name => TextInputType.name,
-                    FieldType.phone => TextInputType.phone,
                     FieldType.password => TextInputType.text,
+                    FieldType.firstName || FieldType.lastName => TextInputType.name,
+                    FieldType.phone => TextInputType.phone,
                   },
                   obscureText: type == FieldType.password,
                   obscuringCharacter: '*',
