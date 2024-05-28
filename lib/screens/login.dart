@@ -30,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
       _isLoading = false;
     });
     if (result == 'success') {
-      context.go('/home');
+      context.go('/profile');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(result)),

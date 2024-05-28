@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DiagonalContainerContents extends StatelessWidget {
@@ -11,22 +12,24 @@ class DiagonalContainerContents extends StatelessWidget {
       modifiedContents.add(const SizedBox(height: 116));
       modifiedContents.addAll(contents!);
     }
-    return Row(
-      children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24),
-          child: VerticalDivider(color: Color(0xFFE88B38), thickness: .75),
-        ),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: modifiedContents.isEmpty
-              ? [Container()]
-              : modifiedContents,
+    return IntrinsicHeight(
+      child: Row(
+        children: [
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24),
+            child: VerticalDivider(color: Color(0xFFE88B38), thickness: .75),
           ),
-        ),
-        const SizedBox(width: 24),
-      ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: modifiedContents.isEmpty
+                ? [Container()]
+                : modifiedContents,
+            ),
+          ),
+          const SizedBox(width: 18),
+        ],
+      ),
     );
   }
 }

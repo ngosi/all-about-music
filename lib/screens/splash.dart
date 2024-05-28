@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
     });
     Future.delayed(const Duration(seconds: 5), () {
       print(FirebaseAuth.instance.currentUser);
-      context.go(_signedIn ? '/home' : '/onboarding');
+      context.go(_signedIn ? '/profile' : '/onboarding');
     });
   }
 

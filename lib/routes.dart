@@ -5,7 +5,7 @@ import 'package:all_about_music/screens/login.dart';
 import 'package:all_about_music/screens/onboarding.dart';
 import 'package:all_about_music/screens/signup.dart';
 import 'package:all_about_music/screens/splash.dart';
-import 'package:all_about_music/screens/home.dart';
+import 'package:all_about_music/screens/profile.dart';
 
 class Routes {
   static final Map<String, Widget> routesMap = {
@@ -13,7 +13,7 @@ class Routes {
     '/login': const LoginScreen(),
     '/signup': const SignupScreen(),
     '/onboarding': const Onboarding(),
-    '/home': const HomeScreen(),
+    '/profile': const ProfileScreen(),
   };
 
   static final GoRouter router = GoRouter(

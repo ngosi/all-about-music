@@ -33,7 +33,7 @@ class _SignupScreenState extends State<SignupScreen> {
       _isLoading = false;
     });
     if (result == 'success') {
-      context.go('/home');
+      context.go('/profile');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(result)),

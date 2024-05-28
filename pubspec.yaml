@@ -55,6 +55,7 @@ flutter:
     - family: Montserrat
       fonts:
         - asset: assets/fonts/Montserrat-Medium.ttf
+        - asset: assets/fonts/Montserrat-Light.ttf
     - family: Lato
       fonts:
         - asset: assets/fonts/Lato-Regular.ttf
