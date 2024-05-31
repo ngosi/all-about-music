@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:all_about_music/widgets/diagonal_container_contents.dart';
+import 'package:all_about_music/components/diagonal_container_contents.dart';
 
 class DiagonalContainer extends StatelessWidget {
   final Widget child;
@@ -8,6 +8,7 @@ class DiagonalContainer extends StatelessWidget {
   final double? height;
   final BoxDecoration decoration;
   final bool defaultBorder;
+  final bool doubleBorder;
   const DiagonalContainer({
     this.child = const DiagonalContainerContents(),
     this.contents,
@@ -20,15 +21,16 @@ class DiagonalContainer extends StatelessWidget {
       ),
     ),
     this.defaultBorder = true,
+    this.doubleBorder = false,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      painter: DiagonalPainter(defaultBorder),
+      painter: DiagonalPainter(defaultBorder, doubleBorder),
       child: ClipPath(
-        clipper: DiagonalClipper(),
+        clipper: DiagonalClipper(doubleBorder),
         child: Container(
           height: height,
           decoration: decoration,
@@ -42,14 +44,28 @@ class DiagonalContainer extends StatelessWidget {
 }
 
 class DiagonalClipper extends CustomClipper<Path> {
+  final bool doubleBorder;
+  DiagonalClipper(this.doubleBorder);
+
   @override
   Path getClip(Size size) {
-    Path path = Path()
-      ..lineTo(95, 86)
-      ..lineTo(size.width, 86)
-      ..lineTo(size.width, size.height)
-      ..lineTo(0, size.height)
-      ..close();
+    late Path path;
+    if (doubleBorder) {
+      path = Path()
+        ..lineTo(95, 86)
+        ..lineTo(size.width, 86)
+        ..lineTo(size.width, size.height)
+        ..lineTo(size.width - 95, size.height - 86)
+        ..lineTo(0, size.height - 86)
+        ..close();
+    } else {
+      path = Path()
+        ..lineTo(95, 86)
+        ..lineTo(size.width, 86)
+        ..lineTo(size.width, size.height)
+        ..lineTo(0, size.height)
+        ..close();
+    }
 
     return path;
   }
@@ -62,13 +78,14 @@ class DiagonalClipper extends CustomClipper<Path> {
 
 class DiagonalPainter extends CustomPainter {
   final bool defaultBorder;
-  const DiagonalPainter(this.defaultBorder);
+  final bool doubleBorder;
+  const DiagonalPainter(this.defaultBorder, this.doubleBorder);
 
   @override
   void paint(Canvas canvas, Size size) {
     if (defaultBorder) {
       Path path = Path()
-        ..moveTo(-9.6, -8.6)
+        ..moveTo(-9.5, -8.6)
         ..lineTo(95, 86)
         ..lineTo(size.width, 86);
       Paint paint = Paint()
@@ -77,6 +94,14 @@ class DiagonalPainter extends CustomPainter {
         ..strokeWidth = 10;
 
       canvas.drawPath(path, paint);
+      if (doubleBorder) {
+        path = Path()
+          ..moveTo(size.width + 9.5, size.height + 8.6)
+          ..lineTo(size.width - 95, size.height - 86)
+          ..lineTo(0, size.height - 86);
+
+        canvas.drawPath(path, paint);
+      }
     } else {
       Path path = Path()
         ..moveTo(-3, -13)

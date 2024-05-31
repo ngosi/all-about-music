@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:all_about_music/widgets/button.dart';
-import 'package:all_about_music/widgets/field.dart';
-import 'package:all_about_music/utils/auth_methods.dart' as auth;
+import 'package:all_about_music/components/button.dart';
+import 'package:all_about_music/components/field.dart';
+import 'package:all_about_music/utils/firebase_methods.dart' as auth;
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -33,7 +33,7 @@ class _SignupScreenState extends State<SignupScreen> {
       _isLoading = false;
     });
     if (result == 'success') {
-      context.go('/profile');
+      context.go('/accountType');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(result)),

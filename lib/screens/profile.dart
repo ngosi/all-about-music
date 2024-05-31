@@ -3,8 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'package:all_about_music/widgets/diagonal_container.dart';
-import 'package:all_about_music/widgets/button.dart';
+import 'package:all_about_music/components/diagonal_container.dart';
+import 'package:all_about_music/components/button.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -248,7 +248,8 @@ class ProfileScreen extends StatelessWidget {
                           () {},
                           'Upload Demo',
                           fillOrange: false,
-                          borderOrange: true,
+                          borderColor: const Color(0xFFE88B38),
+                          textOrange: true,
                           height: 56,
                         ),
                         const SizedBox(height: 12),

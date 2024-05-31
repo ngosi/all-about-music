@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:all_about_music/utils/firebase_methods.dart';
 import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
@@ -11,20 +14,23 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  bool _loggedIn = false;
+  late StreamSubscription<User?> sub;
 
   @override
   void initState() {
     super.initState();
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      setState(() {
-        _loggedIn = user != null;
-      });
+    late bool loggedIn = FirebaseAuth.instance.currentUser != null;
+    if (!loggedIn) {
+      context.go('/onboarding');
+    }
+    isArtist().then((isArtist) {
+      context.go(isArtist ? '/profile' : '/fan');
     });
-    Future.delayed(const Duration(seconds: 5), () {
-      print(FirebaseAuth.instance.currentUser);
-      context.go(_loggedIn ? '/profile' : '/onboarding');
-    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override

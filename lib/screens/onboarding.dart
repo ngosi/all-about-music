@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:all_about_music/widgets/diagonal_container.dart';
-import 'package:all_about_music/widgets/page_indicator.dart';
-import 'package:all_about_music/widgets/blur_button.dart';
+import 'package:all_about_music/components/diagonal_container.dart';
+import 'package:all_about_music/components/page_indicator.dart';
+import 'package:all_about_music/components/blur_button.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({super.key});

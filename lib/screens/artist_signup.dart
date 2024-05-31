@@ -1,4 +1,4 @@
-import 'package:all_about_music/utils/firebase_methods.dart';
+import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -6,32 +6,37 @@ import 'package:all_about_music/components/button.dart';
 import 'package:all_about_music/components/field.dart';
 import 'package:all_about_music/utils/firebase_methods.dart' as auth;
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class ArtistSignupScreen extends StatefulWidget {
+  const ArtistSignupScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<ArtistSignupScreen> createState() => _ArtistSignupScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+class _ArtistSignupScreenState extends State<ArtistSignupScreen> {
+  final TextEditingController _stageNameController = TextEditingController();
+  final TextEditingController _bioController = TextEditingController();
   bool _isLoading = false;
-  bool? _rememberMe = false;
+  String country = "";
+  String? state;
+  String? city;
 
-  void login() async {
+  void signUp() async {
     setState(() {
       _isLoading = true;
     });
-    String result = await auth.login(
-      email: _emailController.text,
-      password: _passwordController.text,
+    String result = await auth.artistSignup(
+      stageName: _stageNameController.text,
+      bio: _bioController.text,
+      country: country,
+      state: state,
+      city: city,
     );
     setState(() {
       _isLoading = false;
     });
     if (result == 'success') {
-      context.go(await isArtist() ? '/profile' : '/fan');
+      context.go('/profile');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(result)),
@@ -42,8 +47,8 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void dispose() {
     super.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
+    _stageNameController.dispose();
+    _bioController.dispose();
   }
 
   @override
@@ -67,13 +72,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   Stack(
                     children: [
                       GestureDetector(
-                        onTap: () => context.go('/onboarding'),
+                        onTap: () => context.go('/login'),
                         child: const Icon(Icons.arrow_back, color: Color(0xFFC25325)),
                       ),
                       const Align(
                         alignment: Alignment.bottomCenter,
                         child: Text(
-                          'LOG IN',
+                          'SIGN UP',
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             color: Color(0xFFC25325),
@@ -102,51 +107,30 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                   ),
-                  Field(_emailController, FieldType.email),
-                  Field(_passwordController, FieldType.password),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    child: Row(
-                      children: [
-                        Checkbox.adaptive(
-                          visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
-                          value: _rememberMe,
-                          onChanged: (value) {
-                            setState(() {
-                              _rememberMe = value;
-                            });
-                          },
-                        ),
-                        const Text(
-                          'Remember me',
-                          style: TextStyle(
-                            color: Color(0xFF707070),
-                            fontFamily: 'Montserrat',
-                            fontSize: 11,
-                          ),
-                        ),
-                        const Spacer(),
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: GestureDetector(
-                            onTap: () {},
-                            child: const Text(
-                              'Forgot Password',
-                              style: TextStyle(
-                                color: Color(0xFF707070),
-                                fontFamily: 'Montserrat',
-                                fontSize: 11,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                      ],
-                    ),
-                  ),
-                  Button(login, 'Login', isLoading: _isLoading),
+                  Field(_stageNameController, FieldType.stageName),
+                  Field(_bioController, FieldType.bio),
                   const Spacer(),
-                  Button(() => context.go('/signup'), 'Sign Up', fillOrange: false),
+                  CSCPicker(
+                    layout: Layout.vertical,
+                    flagState: CountryFlag.DISABLE,
+                    onCountryChanged: (country) {
+                      setState(() {
+                        this.country = country;
+                      });
+                    },
+                    onStateChanged: (state) {
+                      setState(() {
+                        this.state = state;
+                      });
+                    },
+                    onCityChanged: (city) {
+                      setState(() {
+                        this.city = city;
+                      });
+                    },
+                  ),
+                  const Spacer(),
+                  Button(signUp, 'Submit', isLoading: _isLoading),
                 ],
               ),
             ),

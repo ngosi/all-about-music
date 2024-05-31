@@ -1,3 +1,4 @@
+import 'package:all_about_music/models/artist.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -15,6 +16,7 @@ Future<String> signUp({
   try {
     if (email.isNotEmpty || password.isNotEmpty || firstName.isNotEmpty || lastName.isNotEmpty) {
       UserCredential cred = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      cred.user!.updateDisplayName('$firstName $lastName');
       model.User user = model.User(
         uid: cred.user!.uid,
         email: email,
@@ -36,7 +38,7 @@ Future<String> signUp({
   } catch (err) {
     return err.toString();
   }
-  return 'fields empty';
+  return 'empty fields';
 }
 
 Future<String> login({
@@ -48,7 +50,7 @@ Future<String> login({
       await _auth.signInWithEmailAndPassword(email: email, password: password);
       return 'success';
     }
-    return 'Must input both fields';
+    return 'empty fields';
   } on FirebaseAuthException catch (err) {
     // switch (err.code) {
     //   case 'invalid-email':
@@ -63,4 +65,35 @@ Future<String> login({
   } catch (err) {
     return err.toString();
   }
+}
+
+Future<String> artistSignup({
+  required String stageName,
+  required String bio,
+  required String country,
+  String? state,
+  String? city,
+}) async {
+  try {
+    if (stageName.isNotEmpty && bio.isNotEmpty && country.isNotEmpty) {
+      Artist artist = Artist(
+        stageName: stageName,
+        bio: bio,
+        country: country,
+        state: state,
+        city: city,
+      );
+
+      await _firestore.collection('artists').doc(_auth.currentUser!.uid).set(artist.toMap());
+      return 'success';
+    }
+    return 'empty fields';
+  } catch (err) {
+    return err.toString();
+  }
+}
+
+Future<bool> isArtist() async {
+  DocumentSnapshot snap = await FirebaseFirestore.instance.collection('artists').doc(FirebaseAuth.instance.currentUser!.uid).get();
+  return snap.exists;
 }

@@ -5,7 +5,8 @@ class Button extends StatelessWidget {
   final String text;
   final bool isLoading;
   final bool fillOrange;
-  final bool borderOrange;
+  final Color borderColor;
+  final bool textOrange;
   final double height;
   const Button(
     this.onPressed,
@@ -13,7 +14,8 @@ class Button extends StatelessWidget {
       super.key,
       this.isLoading = false,
       this.fillOrange = true,
-      this.borderOrange = false,
+      this.borderColor = const Color(0xFF707070),
+      this.textOrange = false,
       this.height = 60,
     }
   );
@@ -42,9 +44,7 @@ class Button extends StatelessWidget {
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(height-34),
                 side: BorderSide(
-                  color: borderOrange
-                    ? const Color(0xFFE88B38)
-                    : const Color(0xFF707070),
+                  color: borderColor,
                 ),
               ),
             ),
@@ -54,7 +54,7 @@ class Button extends StatelessWidget {
             : Text(
                 text,
                 style: TextStyle(
-                  color: borderOrange ? const Color(0xFFE88B38) : Colors.white,
+                  color: textOrange ? const Color(0xFFE88B38) : Colors.white,
                   fontFamily: 'Poppins',
                   fontSize: 16,
                 ),

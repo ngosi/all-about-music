@@ -7,6 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:all_about_music/routes.dart';
+import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
 // firebase emulators:start --import ./emulators_data --export-on-exit
@@ -26,11 +27,11 @@ void main() async {
     }
   }
 
-  runApp(const MyApp());
+  runApp(const App());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class App extends StatelessWidget {
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
