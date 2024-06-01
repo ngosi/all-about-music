@@ -1,19 +1,75 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
 
-Future<Uint8List?> pickImage(ImageSource source) async {
-  final ImagePicker imagePicker = ImagePicker();
+Future<Uint8List?> pickImage(BuildContext context, {ImageSource? source}) async {
+  if (source == null) {
+    Completer<Uint8List?> completer = Completer<Uint8List?>();
 
+    await showDialog(
+      context: context,
+      builder: (context) {
+        return SimpleDialog(
+          title: const Text('Create a Post'),
+          children: [
+            SimpleDialogOption(
+              padding: const EdgeInsets.all(20),
+              child: const Text('Take a photo'),
+              onPressed: () async {
+                Navigator.of(context).pop();
+                Uint8List? image = await pickImage(context, source: ImageSource.camera);
+                completer.complete(image);
+              },
+            ),
+            SimpleDialogOption(
+              padding: const EdgeInsets.all(20),
+              child: const Text('Choose from gallery'),
+              onPressed: () async {
+                Navigator.of(context).pop();
+                Uint8List? image = await pickImage(context, source: ImageSource.gallery);
+                completer.complete(image);
+              },
+            ),
+            SimpleDialogOption(
+              padding: const EdgeInsets.all(20),
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+    return completer.future;
+  }
+
+  final ImagePicker imagePicker = ImagePicker();
   XFile? file = await imagePicker.pickImage(source: source);
 
   if (file != null) {
     return await file.readAsBytes();
   }
-  if (kDebugMode) {
-    print('No image selected');
+
+  showSnackBar('No image selected', context);
+  return null;
+}
+
+
+Future<Uint8List?> pickSong(context) async {
+  FilePickerResult? result = await FilePicker.platform.pickFiles(
+    type: FileType.audio,
+  );
+  if (result != null) {
+    return await result.files.single.xFile.readAsBytes();
+
   }
+  showSnackBar('Nothing selected', context);
   return null;
 }
 

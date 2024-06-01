@@ -1,14 +1,14 @@
 import 'dart:typed_data';
 
-import 'package:all_about_music/utils/utils.dart';
-import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
+
+import 'package:csc_picker/csc_picker.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:all_about_music/components/button.dart';
 import 'package:all_about_music/components/field.dart';
-import 'package:all_about_music/utils/firebase_methods.dart' as auth;
-import 'package:image_picker/image_picker.dart';
+import 'package:all_about_music/utils/firebase_methods.dart';
+import 'package:all_about_music/utils/utils.dart';
 
 class ArtistSignupScreen extends StatefulWidget {
   const ArtistSignupScreen({super.key});
@@ -30,7 +30,7 @@ class _ArtistSignupScreenState extends State<ArtistSignupScreen> {
     setState(() {
       _isLoading = true;
     });
-    String result = await auth.artistSignup(
+    String result = await artistSignup(
       stageName: _stageNameController.text,
       bio: _bioController.text,
       country: _country,
@@ -48,51 +48,15 @@ class _ArtistSignupScreenState extends State<ArtistSignupScreen> {
     }
   }
 
-  _selectImage(BuildContext context) async {
-    ImagePicker picker = ImagePicker();
-    XFile? file;
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return SimpleDialog(
-          title: const Text('Create a Post'),
-          children: [
-            SimpleDialogOption(
-              padding: const EdgeInsets.all(20),
-              child: const Text('Take a photo'),
-              onPressed: () async {
-                Navigator.of(context).pop();
-                _bannerImage = await pickImage(ImageSource.camera);
-                setState(() {});
-              },
-            ),
-            SimpleDialogOption(
-              padding: const EdgeInsets.all(20),
-              child: const Text('Choose from gallery'),
-              onPressed: () async {
-                Navigator.of(context).pop();
-                _bannerImage = await pickImage(ImageSource.gallery);
-                setState(() {});
-              },
-            ),
-            SimpleDialogOption(
-              padding: const EdgeInsets.all(20),
-              child: const Text('Cancel'),
-              onPressed: () async {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      }
-    );
+  void _selectImage(BuildContext context) async {
+    _bannerImage = await pickImage(context);
   }
 
   @override
   void dispose() {
-    super.dispose();
     _stageNameController.dispose();
     _bioController.dispose();
+    super.dispose();
   }
 
   @override

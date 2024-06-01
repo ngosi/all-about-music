@@ -6,6 +6,7 @@ class DiagonalContainer extends StatelessWidget {
   final Widget child;
   final List<Widget>? contents;
   final double? height;
+  final double? minHeight;
   final BoxDecoration decoration;
   final bool defaultBorder;
   final bool doubleBorder;
@@ -13,6 +14,7 @@ class DiagonalContainer extends StatelessWidget {
     this.child = const DiagonalContainerContents(),
     this.contents,
     this.height,
+    this.minHeight,
     this.decoration = const BoxDecoration(
       gradient: LinearGradient(
         colors: [Color(0xFF404041), Color(0xFF0E0F0E)],
@@ -33,6 +35,7 @@ class DiagonalContainer extends StatelessWidget {
         clipper: DiagonalClipper(doubleBorder),
         child: Container(
           height: height,
+          constraints: minHeight != null ? BoxConstraints(minHeight: minHeight!) : null,
           decoration: decoration,
           child: contents == null
             ? child

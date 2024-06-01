@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:all_about_music/components/button.dart';
 import 'package:all_about_music/components/field.dart';
-import 'package:all_about_music/utils/firebase_methods.dart' as auth;
+import 'package:all_about_music/utils/firebase_methods.dart' as fire;
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -24,7 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       _isLoading = true;
     });
-    String result = await auth.login(
+    String result = await fire.login(
       email: _emailController.text,
       password: _passwordController.text,
     );

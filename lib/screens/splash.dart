@@ -20,6 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 2), () {
+      // FirebaseAuth.instance.signOut();
       late bool loggedIn = FirebaseAuth.instance.currentUser != null;
       if (!loggedIn) {
         context.go('/onboarding');

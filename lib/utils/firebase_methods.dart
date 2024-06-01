@@ -1,11 +1,15 @@
 import 'dart:typed_data';
 
-import 'package:all_about_music/models/artist.dart';
+import 'package:all_about_music/models/music.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:uuid/uuid.dart';
 
 import 'package:all_about_music/models/user.dart' as model;
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:all_about_music/models/artist.dart';
+
+
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -76,13 +80,13 @@ Future<String> artistSignup({
   required String stageName,
   required String bio,
   required String country,
-  String? state,
-  String? city,
-  Uint8List? bannerImage,
+  required String? state,
+  required String? city,
+  required Uint8List? bannerImage,
 }) async {
   try {
     if (stageName.isNotEmpty && bio.isNotEmpty && country.isNotEmpty) {
-      String? bannerUrl = bannerImage != null ? await uploadImage('banners', bannerImage) : null;
+      String? bannerUrl = bannerImage != null ? await uploadFile('banners', bannerImage) : null;
       Artist artist = Artist(
         stageName: stageName,
         bio: bio,
@@ -90,6 +94,7 @@ Future<String> artistSignup({
         state: state,
         city: city,
         bannerUrl: bannerUrl,
+        demos: [],
         fans: [],
         messages: [],
       );
@@ -103,8 +108,45 @@ Future<String> artistSignup({
   }
 }
 
-Future<String> uploadImage(String childName, Uint8List file) async {
+Future<String> uploadDemo({
+  required String title,
+  required String author,
+  required Uint8List? demo,
+  required Uint8List? cover,
+}) async {
+  try {
+    if (title.isNotEmpty && author.isNotEmpty && demo != null) {
+      String songId = const Uuid().v1();
+      String songUrl = await uploadSong('songs', demo, songId);
+      String? coverUrl = cover != null ? await uploadSong('covers', cover, songId) : null;
+      Music music = Music(
+        songId: songId,
+        uid: _auth.currentUser!.uid,
+        title: title,
+        author: author,
+        songUrl: songUrl,
+        coverUrl: coverUrl,
+      );
+      _firestore.collection('demos').doc(songId).set(music.toMap());
+      _firestore.collection('artists').doc(_auth.currentUser!.uid).update({
+        'demos': FieldValue.arrayUnion([songId]),
+      });
+      return 'success';
+    }
+    return 'song, cover art, title, and author required';
+  } catch (err) {
+    return err.toString();
+  }
+}
+
+Future<String> uploadFile(String childName, Uint8List file) async {
   Reference ref = _storage.ref().child(childName).child(_auth.currentUser!.uid);
+  TaskSnapshot snap = await ref.putData(file);
+  return await snap.ref.getDownloadURL();
+}
+
+Future<String> uploadSong(String childName, Uint8List file, String songId) async {
+  Reference ref = _storage.ref().child(childName).child(_auth.currentUser!.uid).child(songId);
   TaskSnapshot snap = await ref.putData(file);
   return await snap.ref.getDownloadURL();
 }

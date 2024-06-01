@@ -20,6 +20,9 @@ dependencies:
   flutter_svg: ^2.0.10+1
   csc_picker: ^0.2.7
   image_picker: ^1.1.2
+  file_picker: ^8.0.3
+  uuid: ^4.4.0
+  audioplayers: ^6.0.0
 
 dev_dependencies:
   flutter_test:

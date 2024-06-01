@@ -1,52 +1,61 @@
-import 'package:all_about_music/utils/utils.dart';
+import 'dart:typed_data';
+
+import 'package:all_about_music/utils/firebase_methods.dart';
 import 'package:flutter/material.dart';
+
 import 'package:go_router/go_router.dart';
 
 import 'package:all_about_music/components/button.dart';
 import 'package:all_about_music/components/field.dart';
-import 'package:all_about_music/utils/firebase_methods.dart' as fire;
+import 'package:all_about_music/utils/utils.dart';
 
-class SignupScreen extends StatefulWidget {
-  const SignupScreen({super.key});
+class UploadDemoScreen extends StatefulWidget {
+  const UploadDemoScreen({super.key});
 
   @override
-  State<SignupScreen> createState() => _SignupScreenState();
+  State<UploadDemoScreen> createState() => _UploadDemoScreenState();
 }
 
-class _SignupScreenState extends State<SignupScreen> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _firstNameController = TextEditingController();
-  final TextEditingController _lastNameController = TextEditingController();
+class _UploadDemoScreenState extends State<UploadDemoScreen> {
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _authorController = TextEditingController();
   bool _isLoading = false;
+  Uint8List? _demo;
+  Uint8List? _cover;
 
-  void signUp() async {
+  void _submit() async {
     setState(() {
       _isLoading = true;
     });
-    String result = await fire.signUp(
-      email: _emailController.text,
-      password: _passwordController.text,
-      firstName: _firstNameController.text,
-      lastName: _lastNameController.text,
+    String result = await uploadDemo(
+      title: _titleController.text,
+      author: _authorController.text,
+      demo: _demo,
+      cover: _cover,
     );
     setState(() {
       _isLoading = false;
     });
     if (result == 'success') {
-      context.go('/accountType');
+      context.go('/profile');
     } else {
       showSnackBar(result, context);
     }
   }
 
+  void _selectSong() async {
+    _demo = await pickSong(context);
+  }
+
+  void _selectImage(BuildContext context) async {
+    _cover = await pickImage(context);
+  }
+
   @override
   void dispose() {
+    _titleController.dispose();
+    _authorController.dispose();
     super.dispose();
-    _firstNameController.dispose();
-    _lastNameController.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
   }
 
   @override
@@ -70,13 +79,13 @@ class _SignupScreenState extends State<SignupScreen> {
                   Stack(
                     children: [
                       GestureDetector(
-                        onTap: () => context.go('/login'),
+                        onTap: () => context.go('/profile'),
                         child: const Icon(Icons.arrow_back, color: Color(0xFFC25325)),
                       ),
                       const Align(
                         alignment: Alignment.bottomCenter,
                         child: Text(
-                          'SIGN UP',
+                          'UPLOAD DEMO',
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             color: Color(0xFFC25325),
@@ -105,12 +114,31 @@ class _SignupScreenState extends State<SignupScreen> {
                       ],
                     ),
                   ),
-                  Field(_firstNameController, FieldType.firstName),
-                  Field(_lastNameController, FieldType.lastName),
-                  Field(_emailController, FieldType.email),
-                  Field(_passwordController, FieldType.password),
+                  Field(_titleController, FieldType.custom, text: 'TITLE'),
+                  Field(_authorController, FieldType.custom, text: 'AUTHOR'),
                   const Spacer(),
-                  Button(signUp, 'Sign Up', isLoading: _isLoading),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          children: [
+                            const Text('Upload Demo', style: TextStyle(color: Colors.white)),
+                            IconButton(onPressed: () => _selectSong(), icon: const Icon(Icons.upload), color: Colors.white),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            const Text('Upload Cover', style: TextStyle(color: Colors.white)),
+                            IconButton(onPressed: () => _selectImage(context), icon: const Icon(Icons.upload), color: Colors.white),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Spacer(),
+                  Button(() => _submit(), 'Upload', isLoading: _isLoading),
                 ],
               ),
             ),

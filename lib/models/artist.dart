@@ -5,6 +5,7 @@ class Artist {
   final String? state;
   final String? city;
   final String? bannerUrl;
+  final List<String> demos;
   final List<String> fans;
   final List messages;
 
@@ -12,9 +13,10 @@ class Artist {
     required this.stageName,
     required this.bio,
     required this.country,
-    this.state,
-    this.city,
-    this.bannerUrl,
+    required this.state,
+    required this.city,
+    required this.bannerUrl,
+    required this.demos,
     required this.fans,
     required this.messages,
   });
@@ -26,6 +28,7 @@ class Artist {
     'state': state,
     'city': city,
     'image': bannerUrl,
+    'demos': demos,
     'fans': fans,
     'messages': messages,
   };

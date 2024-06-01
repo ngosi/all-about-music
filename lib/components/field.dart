@@ -2,12 +2,13 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-enum FieldType { email, password, firstName, lastName, phone, stageName, bio }
+enum FieldType { email, password, firstName, lastName, phone, stageName, bio, custom }
 
 class Field extends StatelessWidget {
   final TextEditingController controller;
   final FieldType type;
-  const Field(this.controller, this.type, {super.key});
+  final String? text;
+  const Field(this.controller, this.type, {this.text, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +26,7 @@ class Field extends StatelessWidget {
               FieldType.phone => 'PHONE',
               FieldType.stageName => 'STAGE NAME',
               FieldType.bio => 'ARTIST BIO',
+              FieldType.custom => text!,
             },
             style: const TextStyle(
               fontFamily: 'Cypher1',
