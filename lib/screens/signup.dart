@@ -1,3 +1,4 @@
+import 'package:all_about_music/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -35,9 +36,7 @@ class _SignupScreenState extends State<SignupScreen> {
     if (result == 'success') {
       context.go('/accountType');
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(result)),
-      );
+      showSnackBar(result, context);
     }
   }
 

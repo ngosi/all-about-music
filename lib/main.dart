@@ -7,7 +7,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:all_about_music/routes.dart';
-import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
 // firebase emulators:start --import ./emulators_data --export-on-exit

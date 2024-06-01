@@ -1,3 +1,6 @@
+import 'dart:typed_data';
+
+import 'package:all_about_music/utils/utils.dart';
 import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -5,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:all_about_music/components/button.dart';
 import 'package:all_about_music/components/field.dart';
 import 'package:all_about_music/utils/firebase_methods.dart' as auth;
+import 'package:image_picker/image_picker.dart';
 
 class ArtistSignupScreen extends StatefulWidget {
   const ArtistSignupScreen({super.key});
@@ -17,20 +21,22 @@ class _ArtistSignupScreenState extends State<ArtistSignupScreen> {
   final TextEditingController _stageNameController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
   bool _isLoading = false;
-  String country = "";
-  String? state;
-  String? city;
+  String _country = "";
+  String? _state;
+  String? _city;
+  Uint8List? _bannerImage;
 
-  void signUp() async {
+  void _signUp() async {
     setState(() {
       _isLoading = true;
     });
     String result = await auth.artistSignup(
       stageName: _stageNameController.text,
       bio: _bioController.text,
-      country: country,
-      state: state,
-      city: city,
+      country: _country,
+      state: _state,
+      city: _city,
+      bannerImage: _bannerImage,
     );
     setState(() {
       _isLoading = false;
@@ -38,10 +44,48 @@ class _ArtistSignupScreenState extends State<ArtistSignupScreen> {
     if (result == 'success') {
       context.go('/profile');
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(result)),
-      );
+      showSnackBar(result, context);
     }
+  }
+
+  _selectImage(BuildContext context) async {
+    ImagePicker picker = ImagePicker();
+    XFile? file;
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return SimpleDialog(
+          title: const Text('Create a Post'),
+          children: [
+            SimpleDialogOption(
+              padding: const EdgeInsets.all(20),
+              child: const Text('Take a photo'),
+              onPressed: () async {
+                Navigator.of(context).pop();
+                _bannerImage = await pickImage(ImageSource.camera);
+                setState(() {});
+              },
+            ),
+            SimpleDialogOption(
+              padding: const EdgeInsets.all(20),
+              child: const Text('Choose from gallery'),
+              onPressed: () async {
+                Navigator.of(context).pop();
+                _bannerImage = await pickImage(ImageSource.gallery);
+                setState(() {});
+              },
+            ),
+            SimpleDialogOption(
+              padding: const EdgeInsets.all(20),
+              child: const Text('Cancel'),
+              onPressed: () async {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      }
+    );
   }
 
   @override
@@ -54,17 +98,17 @@ class _ArtistSignupScreenState extends State<ArtistSignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFF404041), Color(0xFF252625)],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFF404041), Color(0xFF252625)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
           ),
-          child: SafeArea(
+        ),
+        child: SafeArea(
+          child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(40),
               child: Column(
@@ -109,28 +153,35 @@ class _ArtistSignupScreenState extends State<ArtistSignupScreen> {
                   ),
                   Field(_stageNameController, FieldType.stageName),
                   Field(_bioController, FieldType.bio),
-                  const Spacer(),
-                  CSCPicker(
-                    layout: Layout.vertical,
-                    flagState: CountryFlag.DISABLE,
-                    onCountryChanged: (country) {
-                      setState(() {
-                        this.country = country;
-                      });
-                    },
-                    onStateChanged: (state) {
-                      setState(() {
-                        this.state = state;
-                      });
-                    },
-                    onCityChanged: (city) {
-                      setState(() {
-                        this.city = city;
-                      });
-                    },
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 18),
+                    child: CSCPicker(
+                      layout: Layout.vertical,
+                      flagState: CountryFlag.DISABLE,
+                      defaultCountry: CscCountry.United_States,
+                      onCountryChanged: (country) {
+                        setState(() {
+                          _country = country;
+                        });
+                      },
+                      onStateChanged: (state) {
+                        setState(() {
+                          _state = state;
+                        });
+                      },
+                      onCityChanged: (city) {
+                        setState(() {
+                          _city = city;
+                        });
+                      },
+                    ),
                   ),
-                  const Spacer(),
-                  Button(signUp, 'Submit', isLoading: _isLoading),
+                  IconButton(
+                    onPressed: () => _selectImage(context),
+                    icon: const Icon(Icons.upload),
+                    color: Colors.white,
+                  ),
+                  Button(_signUp, 'Submit', isLoading: _isLoading),
                 ],
               ),
             ),

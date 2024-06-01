@@ -3,12 +3,14 @@ class User {
   final String email;
   final String firstName;
   final String lastName;
+  final List<String> following;
 
   User({
     required this.uid,
     required this.email,
     required this.firstName,
     required this.lastName,
+    required this.following,
   });
 
   Map<String, dynamic> toMap() => {
@@ -16,5 +18,6 @@ class User {
     'email': email,
     'firstName': firstName,
     'lastName': lastName,
+    'following': following,
   };
 }

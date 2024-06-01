@@ -1,4 +1,5 @@
 import 'package:all_about_music/utils/firebase_methods.dart';
+import 'package:all_about_music/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -33,9 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (result == 'success') {
       context.go(await isArtist() ? '/profile' : '/fan');
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(result)),
-      );
+      showSnackBar(result, context);
     }
   }
 

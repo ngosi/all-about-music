@@ -50,7 +50,7 @@ class Button extends StatelessWidget {
             ),
           ),
           child: isLoading
-            ? const CircularProgressIndicator()
+            ? const CircularProgressIndicator(color: Colors.white)
             : Text(
                 text,
                 style: TextStyle(

@@ -1,11 +1,15 @@
+import 'dart:typed_data';
+
 import 'package:all_about_music/models/artist.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:all_about_music/models/user.dart' as model;
+import 'package:firebase_storage/firebase_storage.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+final FirebaseStorage _storage = FirebaseStorage.instance;
 
 Future<String> signUp({
   required String email,
@@ -22,6 +26,7 @@ Future<String> signUp({
         email: email,
         firstName: firstName,
         lastName: lastName,
+        following: [],
       );
 
       await _firestore.collection('users').doc(cred.user!.uid).set(user.toMap());
@@ -73,15 +78,20 @@ Future<String> artistSignup({
   required String country,
   String? state,
   String? city,
+  Uint8List? bannerImage,
 }) async {
   try {
     if (stageName.isNotEmpty && bio.isNotEmpty && country.isNotEmpty) {
+      String? bannerUrl = bannerImage != null ? await uploadImage('banners', bannerImage) : null;
       Artist artist = Artist(
         stageName: stageName,
         bio: bio,
         country: country,
         state: state,
         city: city,
+        bannerUrl: bannerUrl,
+        fans: [],
+        messages: [],
       );
 
       await _firestore.collection('artists').doc(_auth.currentUser!.uid).set(artist.toMap());
@@ -91,6 +101,12 @@ Future<String> artistSignup({
   } catch (err) {
     return err.toString();
   }
+}
+
+Future<String> uploadImage(String childName, Uint8List file) async {
+  Reference ref = _storage.ref().child(childName).child(_auth.currentUser!.uid);
+  TaskSnapshot snap = await ref.putData(file);
+  return await snap.ref.getDownloadURL();
 }
 
 Future<bool> isArtist() async {

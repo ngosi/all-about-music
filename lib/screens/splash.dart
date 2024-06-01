@@ -19,12 +19,14 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    late bool loggedIn = FirebaseAuth.instance.currentUser != null;
-    if (!loggedIn) {
-      context.go('/onboarding');
-    }
-    isArtist().then((isArtist) {
-      context.go(isArtist ? '/profile' : '/fan');
+    Future.delayed(const Duration(seconds: 2), () {
+      late bool loggedIn = FirebaseAuth.instance.currentUser != null;
+      if (!loggedIn) {
+        context.go('/onboarding');
+      }
+      isArtist().then((isArtist) {
+        context.go(isArtist ? '/profile' : '/fan');
+      });
     });
   }
 
