@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
+import 'package:all_about_music/utils/colors.dart';
+
 class BlurButton extends StatelessWidget {
   final VoidCallback onPressed;
   const BlurButton(this.onPressed, {super.key});
@@ -22,7 +24,7 @@ class BlurButton extends StatelessWidget {
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(26),
                   side: const BorderSide(
-                    color: Color(0xFF707070),
+                    color: grey,
                     width: 2,
                   ),
                 ),

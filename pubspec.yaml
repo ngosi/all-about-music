@@ -23,6 +23,7 @@ dependencies:
   file_picker: ^8.0.3
   uuid: ^4.4.0
   audioplayers: ^6.0.0
+  flutter_native_splash: ^2.4.0
 
 dev_dependencies:
   flutter_test:
@@ -38,10 +39,14 @@ flutter:
     - assets/images/onboarding1.png
     - assets/images/onboarding2.png
     - assets/images/onboarding3.png
-    - assets/images/music_cover.png
-    - assets/images/rapper.png
+#    - assets/images/music_cover.png
+#    - assets/images/rapper.png
     - assets/icons/gear.svg
     - assets/icons/menu.svg
+    - assets/icons/music.svg
+    - assets/icons/person.svg
+    - assets/icons/podcast.svg
+    - assets/icons/settings.svg
 
   fonts:
     - family: Cypher1
@@ -66,3 +71,9 @@ flutter:
         - asset: assets/fonts/Lato-Regular.ttf
         - asset: assets/fonts/Lato-Bold.ttf
         - asset: assets/fonts/Lato-Black.ttf
+
+flutter_native_splash:
+  background_image: "assets/images/splash.png"
+  android_12:
+    color: "#252625"
+    image: "assets/images/logo.png"

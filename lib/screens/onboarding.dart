@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+
 import 'package:go_router/go_router.dart';
 
 import 'package:all_about_music/components/diagonal_container.dart';
 import 'package:all_about_music/components/page_indicator.dart';
 import 'package:all_about_music/components/blur_button.dart';
+import 'package:all_about_music/utils/colors.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({super.key});
@@ -116,7 +118,7 @@ class _OnboardingState extends State<Onboarding> {
                                   style: const TextStyle(
                                     fontFamily: 'Cypher2',
                                     fontSize: 26,
-                                    color: Colors.white,
+                                    color: white,
                                   ),
                                 ),
                               ),
@@ -127,7 +129,7 @@ class _OnboardingState extends State<Onboarding> {
                                   fontFamily: 'HelveticaNeue',
                                   fontSize: 15,
                                   height: 1.2,
-                                  color: Color(0xFFBABABA),
+                                  color: lightGrey,
                                 ),
                               ),
                             ],
@@ -142,7 +144,7 @@ class _OnboardingState extends State<Onboarding> {
                       'ALLABOUTMUSIC.COM',
                       style: TextStyle(
                         fontFamily: 'Cypher1',
-                        color: Color(0xFFBABABA),
+                        color: lightGrey,
                       ),
                     ),
                   ),

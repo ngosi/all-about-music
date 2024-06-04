@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:all_about_music/components/music_player.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,7 +9,9 @@ import 'package:go_router/go_router.dart';
 
 import 'package:all_about_music/components/diagonal_container.dart';
 import 'package:all_about_music/components/button.dart';
+import 'package:all_about_music/components/music_player.dart';
 import 'package:all_about_music/utils/utils.dart';
+import 'package:all_about_music/utils/colors.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -59,7 +60,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return _isLoading
-      ? const Center(child: CircularProgressIndicator(color: Colors.white))
+      ? const Center(child: CircularProgressIndicator(color: white))
       : Scaffold(
         body: SingleChildScrollView(
           child: Stack(
@@ -75,7 +76,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ) : null,
                   gradient: _bannerUrl == null
                     ? const LinearGradient(
-                      colors: [Color(0xFF612A12), Color(0xFFC15324)],
+                      colors: [darkOrange, orange2],
                       begin: Alignment.bottomLeft,
                       end: Alignment.topRight,
                     ) : null,
@@ -95,10 +96,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     filter: ImageFilter.blur(sigmaX: 40, sigmaY: 40),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(.15),
+                        color: white.withOpacity(.15),
                         border: const Border(
                           top: BorderSide(
-                            color: Color(0xFF707070),
+                            color: grey,
                           ),
                         ),
                       ),
@@ -116,7 +117,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   fontFamily: 'Lato',
                                   fontWeight: FontWeight.w900,
                                   fontSize: 24,
-                                  color: Colors.white,
+                                  color: white,
                                   height: 1.75,
                                 ),
                               ),
@@ -124,7 +125,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 children: [
                                   const Icon(
                                     Icons.location_pin,
-                                    color: Colors.white,
+                                    color: white,
                                     size: 14,
                                   ),
                                   const SizedBox(width: 4),
@@ -133,7 +134,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     style: const TextStyle(
                                       fontFamily: 'Lato',
                                       fontSize: 14,
-                                      color: Colors.white,
+                                      color: white,
                                     ),
                                   ),
                                 ],
@@ -172,7 +173,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   fontFamily: 'Lato',
                                   fontWeight: FontWeight.bold,
                                   fontSize: 24,
-                                  color: Colors.white,
+                                  color: white,
                                 ),
                               ),
                               const Text(
@@ -180,7 +181,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 style: TextStyle(
                                   fontFamily: 'Lato',
                                   fontSize: 14,
-                                  color: Color(0xFFC25325),
+                                  color: orange,
                                 ),
                               ),
                             ],
@@ -199,7 +200,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           style: const TextStyle(
                             fontFamily: 'Lato',
                             fontSize: 12,
-                            color: Color(0xFFD8E0E6),
+                            color: blueishGrey,
                           ),
                         ),
                       ),
@@ -214,7 +215,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     fontFamily: 'Lato',
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
-                                    color: Color(0xFFE88B38),
+                                    color: lightOrange,
                                   ),
                                 ),
                                 const Text(
@@ -222,13 +223,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   style: TextStyle(
                                     fontFamily: 'Lato',
                                     fontSize: 12.5,
-                                    color: Color(0xFFA3A3A3),
+                                    color: grey2,
                                   ),
                                 ),
                               ],
                             ),
                             const Expanded(child: VerticalDivider(
-                              color: Color(0xFFE88B38), thickness: .75,)),
+                              color: lightOrange, thickness: .75,)),
                             Column(
                               children: [
                                 Text(
@@ -237,7 +238,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     fontFamily: 'Lato',
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
-                                    color: Color(0xFFE88B38),
+                                    color: lightOrange,
                                   ),
                                 ),
                                 const Text(
@@ -245,14 +246,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   style: TextStyle(
                                     fontFamily: 'Lato',
                                     fontSize: 12.5,
-                                    color: Color(0xFFA3A3A3),
+                                    color: grey2,
                                   ),
                                 ),
                               ],
                             ),
                             const
                             Expanded(child: VerticalDivider(
-                              color: Color(0xFFE88B38), thickness: .75,)),
+                              color: lightOrange, thickness: .75,)),
                             Column(
                               children: [
                                 Text(
@@ -262,7 +263,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     fontFamily: 'Lato',
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
-                                    color: Color(0xFFE88B38),
+                                    color: lightOrange,
                                   ),
                                 ),
                                 const
@@ -271,14 +272,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   style: TextStyle(
                                     fontFamily: 'Lato',
                                     fontSize: 12.5,
-                                    color: Color(0xFFA3A3A3),
+                                    color: grey2,
                                   ),
                                 ),
                               ],
                             ),
                             const
                             Expanded(child: VerticalDivider(
-                              color: Color(0xFFE88B38), thickness: .75,)),
+                              color: lightOrange, thickness: .75,)),
                             Column(
                               children: [
                                 Text(
@@ -288,7 +289,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     fontFamily: 'Lato',
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
-                                    color: Color(0xFFE88B38),
+                                    color: lightOrange,
                                   ),
                                 ),
                                 const
@@ -297,7 +298,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   style: TextStyle(
                                     fontFamily: 'Lato',
                                     fontSize: 12.5,
-                                    color: Color(0xFFA3A3A3),
+                                    color: grey2,
                                   ),
                                 ),
                               ],
@@ -310,7 +311,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         () => context.go('/uploadDemo'),
                         'Upload Demo',
                         fillOrange: false,
-                        borderColor: const Color(0xFFE88B38),
+                        borderColor: lightOrange,
                         textOrange: true,
                         height: 56,
                       ),
@@ -319,10 +320,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         'Music Demos',
                         style: TextStyle(
                           fontFamily: 'Lato',
-                          color: Color(0xFFC25325),
+                          color: orange,
                         ),
                       ),
-                      const Divider(color: Color(0xFF707070)),
+                      const Divider(color: grey),
                       Column(
                         children: _demos.map((songId) {
                           return Padding(

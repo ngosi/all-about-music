@@ -1,0 +1,14 @@
+<svg id="settings" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="_4_Background_Mask_" data-name="4 (Background/Mask)" width="24" height="24" fill="none"/>
+    </clipPath>
+  </defs>
+  <rect id="_4_Background_Mask_2" data-name="4 (Background/Mask)" width="24" height="24" fill="none"/>
+  <g id="_4" data-name="4" clip-path="url(#clip-path)">
+    <g id="Group" transform="translate(2.605 2.601)">
+      <path id="Vector" d="M15.315,3.209a3.136,3.136,0,0,1-2.53-.25,3.126,3.126,0,0,1-1.5-2.05.991.991,0,0,0-.79-.79,9.522,9.522,0,0,0-3.06.01.993.993,0,0,0-.78.79,3.148,3.148,0,0,1-1.49,2.07,3.1,3.1,0,0,1-2.53.27,1,1,0,0,0-1.07.28A9.511,9.511,0,0,0,.055,6.2a.973.973,0,0,0,.3,1.06,3.211,3.211,0,0,1,1.04,2.33,3.148,3.148,0,0,1-1.03,2.33.977.977,0,0,0-.29,1.06,9.777,9.777,0,0,0,.66,1.39,9.439,9.439,0,0,0,.88,1.26,1,1,0,0,0,1.07.28,3.114,3.114,0,0,1,4.03,2.3.981.981,0,0,0,.78.78,9.521,9.521,0,0,0,3.06-.01.993.993,0,0,0,.78-.79,3.148,3.148,0,0,1,1.49-2.07,3.1,3.1,0,0,1,2.53-.27.974.974,0,0,0,1.07-.29,9.8,9.8,0,0,0,1.52-2.66.973.973,0,0,0-.3-1.06,3.119,3.119,0,0,1-.02-4.65.977.977,0,0,0,.29-1.06,9.777,9.777,0,0,0-.66-1.39,8.445,8.445,0,0,0-.87-1.25A1,1,0,0,0,15.315,3.209Z" transform="translate(0 0)" fill="none" stroke="#aaa" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.2" stroke-dasharray="0 0"/>
+      <path id="Vector-2" data-name="Vector" d="M2.96,5.92A2.96,2.96,0,1,1,5.92,2.96,2.96,2.96,0,0,1,2.96,5.92Z" transform="translate(6.045 6.599)" fill="none" stroke="#aaa" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.2" stroke-dasharray="0 0"/>
+    </g>
+  </g>
+</svg>

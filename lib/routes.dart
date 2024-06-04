@@ -1,6 +1,7 @@
 import 'package:all_about_music/screens/account_type.dart';
 import 'package:all_about_music/screens/artist_signup.dart';
 import 'package:all_about_music/screens/fan.dart';
+import 'package:all_about_music/screens/navbar.dart';
 import 'package:all_about_music/screens/upload_demo.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
@@ -22,6 +23,7 @@ class Routes {
     '/artist': const ArtistSignupScreen(),
     '/uploadDemo': const UploadDemoScreen(),
     '/fan': const FanScreen(),
+    '/nav': const Navigation(),
   };
 
   static final GoRouter router = GoRouter(

@@ -1,10 +1,11 @@
-import 'package:all_about_music/utils/firebase_methods.dart';
-import 'package:all_about_music/utils/utils.dart';
 import 'package:flutter/material.dart';
+
 import 'package:go_router/go_router.dart';
 
 import 'package:all_about_music/components/button.dart';
 import 'package:all_about_music/components/field.dart';
+import 'package:all_about_music/utils/utils.dart';
+import 'package:all_about_music/utils/colors.dart';
 import 'package:all_about_music/utils/firebase_methods.dart' as fire;
 
 class LoginScreen extends StatefulWidget {
@@ -32,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
       _isLoading = false;
     });
     if (result == 'success') {
-      context.go(await isArtist() ? '/profile' : '/fan');
+      context.go(await fire.isArtist() ? '/profile' : '/fan');
     } else {
       showSnackBar(result, context);
     }
@@ -53,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
           height: MediaQuery.of(context).size.height,
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFF404041), Color(0xFF252625)],
+              colors: [darkGrey2, darkGrey3],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
@@ -67,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       GestureDetector(
                         onTap: () => context.go('/onboarding'),
-                        child: const Icon(Icons.arrow_back, color: Color(0xFFC25325)),
+                        child: const Icon(Icons.arrow_back, color: orange),
                       ),
                       const Align(
                         alignment: Alignment.bottomCenter,
@@ -75,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           'LOG IN',
                           style: TextStyle(
                             fontFamily: 'Poppins',
-                            color: Color(0xFFC25325),
+                            color: orange,
                           ),
                         ),
                       ),
@@ -93,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               'AllAboutMusic.com',
                               style: TextStyle(
                                 fontFamily: 'Cypher1',
-                                color: Color(0xFF959292),
+                                color: grey3,
                               ),
                             ),
                           ),
@@ -119,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         const Text(
                           'Remember me',
                           style: TextStyle(
-                            color: Color(0xFF707070),
+                            color: grey,
                             fontFamily: 'Montserrat',
                             fontSize: 11,
                           ),
@@ -132,7 +133,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: const Text(
                               'Forgot Password',
                               style: TextStyle(
-                                color: Color(0xFF707070),
+                                color: grey,
                                 fontFamily: 'Montserrat',
                                 fontSize: 11,
                               ),

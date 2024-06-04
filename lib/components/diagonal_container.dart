@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:all_about_music/components/diagonal_container_contents.dart';
+import 'package:all_about_music/utils/colors.dart';
 
 class DiagonalContainer extends StatelessWidget {
   final Widget child;
@@ -17,7 +18,7 @@ class DiagonalContainer extends StatelessWidget {
     this.minHeight,
     this.decoration = const BoxDecoration(
       gradient: LinearGradient(
-        colors: [Color(0xFF404041), Color(0xFF0E0F0E)],
+        colors: [darkGrey2, black2],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
@@ -92,7 +93,7 @@ class DiagonalPainter extends CustomPainter {
         ..lineTo(95, 86)
         ..lineTo(size.width, 86);
       Paint paint = Paint()
-        ..color = const Color(0xFFC25325)
+        ..color = orange
         ..style = PaintingStyle.stroke
         ..strokeWidth = 10;
 
@@ -110,7 +111,7 @@ class DiagonalPainter extends CustomPainter {
         ..moveTo(-3, -13)
         ..lineTo(98, 80);
       Paint paint = Paint()
-        ..color = const Color(0xFF707070)
+        ..color = grey
         ..style = PaintingStyle.stroke
         ..strokeWidth = 14;
 
@@ -125,7 +126,7 @@ class DiagonalPainter extends CustomPainter {
         ..moveTo(-3, -13)
         ..lineTo(98, 80);
       paint = Paint()
-        ..color = const Color(0xFFE88B38)
+        ..color = lightOrange
         ..style = PaintingStyle.stroke
         ..strokeWidth = 11;
 

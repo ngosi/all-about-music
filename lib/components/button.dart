@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:all_about_music/utils/colors.dart';
+
 class Button extends StatelessWidget {
   final VoidCallback onPressed;
   final String text;
@@ -14,7 +16,7 @@ class Button extends StatelessWidget {
       super.key,
       this.isLoading = false,
       this.fillOrange = true,
-      this.borderColor = const Color(0xFF707070),
+      this.borderColor = grey,
       this.textOrange = false,
       this.height = 60,
     }
@@ -27,8 +29,8 @@ class Button extends StatelessWidget {
         borderRadius: BorderRadius.circular(26),
         gradient: LinearGradient(
           colors: fillOrange
-            ? const [Color(0xFFC15324), Color(0xFF612A12)]
-            : const [Color(0xFF404041), Color(0xFF252625)],
+            ? const [orange2, darkOrange]
+            : const [darkGrey2, darkGrey3],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -50,11 +52,11 @@ class Button extends StatelessWidget {
             ),
           ),
           child: isLoading
-            ? const CircularProgressIndicator(color: Colors.white)
+            ? const CircularProgressIndicator(color: white)
             : Text(
                 text,
                 style: TextStyle(
-                  color: textOrange ? const Color(0xFFE88B38) : Colors.white,
+                  color: textOrange ? lightOrange : white,
                   fontFamily: 'Poppins',
                   fontSize: 16,
                 ),

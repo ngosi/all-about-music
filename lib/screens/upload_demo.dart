@@ -1,13 +1,14 @@
 import 'dart:typed_data';
 
-import 'package:all_about_music/utils/firebase_methods.dart';
 import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
 
 import 'package:all_about_music/components/button.dart';
 import 'package:all_about_music/components/field.dart';
+import 'package:all_about_music/utils/firebase_methods.dart';
 import 'package:all_about_music/utils/utils.dart';
+import 'package:all_about_music/utils/colors.dart';
 
 class UploadDemoScreen extends StatefulWidget {
   const UploadDemoScreen({super.key});
@@ -66,7 +67,7 @@ class _UploadDemoScreenState extends State<UploadDemoScreen> {
           height: MediaQuery.of(context).size.height,
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFF404041), Color(0xFF252625)],
+              colors: [darkGrey2, darkGrey3],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
@@ -80,7 +81,7 @@ class _UploadDemoScreenState extends State<UploadDemoScreen> {
                     children: [
                       GestureDetector(
                         onTap: () => context.go('/profile'),
-                        child: const Icon(Icons.arrow_back, color: Color(0xFFC25325)),
+                        child: const Icon(Icons.arrow_back, color: orange),
                       ),
                       const Align(
                         alignment: Alignment.bottomCenter,
@@ -88,7 +89,7 @@ class _UploadDemoScreenState extends State<UploadDemoScreen> {
                           'UPLOAD DEMO',
                           style: TextStyle(
                             fontFamily: 'Poppins',
-                            color: Color(0xFFC25325),
+                            color: orange,
                           ),
                         ),
                       ),
@@ -106,7 +107,7 @@ class _UploadDemoScreenState extends State<UploadDemoScreen> {
                               'AllAboutMusic.com',
                               style: TextStyle(
                                 fontFamily: 'Cypher1',
-                                color: Color(0xFF959292),
+                                color: grey3,
                               ),
                             ),
                           ),
@@ -124,14 +125,14 @@ class _UploadDemoScreenState extends State<UploadDemoScreen> {
                       children: [
                         Column(
                           children: [
-                            const Text('Upload Demo', style: TextStyle(color: Colors.white)),
-                            IconButton(onPressed: () => _selectSong(), icon: const Icon(Icons.upload), color: Colors.white),
+                            const Text('Upload Demo', style: TextStyle(color: white)),
+                            IconButton(onPressed: () => _selectSong(), icon: const Icon(Icons.upload), color: white),
                           ],
                         ),
                         Column(
                           children: [
-                            const Text('Upload Cover', style: TextStyle(color: Colors.white)),
-                            IconButton(onPressed: () => _selectImage(context), icon: const Icon(Icons.upload), color: Colors.white),
+                            const Text('Upload Cover', style: TextStyle(color: white)),
+                            IconButton(onPressed: () => _selectImage(context), icon: const Icon(Icons.upload), color: white),
                           ],
                         ),
                       ],

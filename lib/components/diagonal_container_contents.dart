@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:all_about_music/utils/colors.dart';
+
 class DiagonalContainerContents extends StatelessWidget {
   final List<Widget>? contents;
   final bool doubleBorder;
@@ -27,7 +29,7 @@ class DiagonalContainerContents extends StatelessWidget {
           children: [
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 24),
-              child: VerticalDivider(color: Color(0xFFE88B38), thickness: .75),
+              child: VerticalDivider(color: orange2, thickness: .75),
             ),
             Expanded(
               child: Column(

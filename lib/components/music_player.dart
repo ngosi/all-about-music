@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'package:all_about_music/utils/colors.dart';
 
 class MusicPlayer extends StatefulWidget {
   final String songId;
@@ -106,7 +107,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           gradient: _isLoading || _coverUrl != null ? null : const LinearGradient(
-            colors: [Color(0xFFC15324), Color(0xFF612A12)],
+            colors: [orange2, darkOrange],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -117,7 +118,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
         ),
         width: double.infinity,
         child: _isLoading
-          ? const Center(child: CircularProgressIndicator(color: Colors.white))
+          ? const Center(child: CircularProgressIndicator(color: white))
           : Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -129,7 +130,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: const Color(0xFF4B210F).withOpacity(.5),
+                      color: brown.withOpacity(.5),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(10),
@@ -141,7 +142,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
                             style: const TextStyle(
                               fontFamily: 'Montserrat',
                               fontSize: 17,
-                              color: Colors.white,
+                              color: white,
                             ),
                           ),
                           Text(
@@ -149,7 +150,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
                             style: const TextStyle(
                               fontFamily: 'Montserrat',
                               fontSize: 10,
-                              color: Color(0xFFCDC5FF),
+                              color: whiteishPurple,
                             ),
                           ),
                           const SizedBox(height: 8),
@@ -163,13 +164,13 @@ class _MusicPlayerState extends State<MusicPlayer> {
                                   visualDensity: VisualDensity.compact,
                                   fixedSize: const Size.fromHeight(50),
                                   shape: const CircleBorder(),
-                                  backgroundColor: Colors.white,
+                                  backgroundColor: white,
                                 ),
                                 child: Icon(
                                   _isPlaying
                                     ? Icons.pause
                                     : Icons.play_arrow,
-                                  color: Colors.black,
+                                  color: black,
                                   size: 36,
                                 ),
                               ),
@@ -184,9 +185,9 @@ class _MusicPlayerState extends State<MusicPlayer> {
                                           thumbShape: CustomThumbShape(),
                                           overlayShape: SliderComponentShape.noOverlay,
                                           trackHeight: 7,
-                                          thumbColor: Colors.white,
-                                          activeTrackColor: const Color(0xFFE88B38),
-                                          inactiveTrackColor: const Color(0xFFD8E0E6),
+                                          thumbColor: white,
+                                          activeTrackColor: lightOrange,
+                                          inactiveTrackColor: blueishGrey,
                                         ),
                                         child: Slider(
                                           min: 0,
@@ -219,7 +220,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
                                               fontWeight: FontWeight.w200,
                                               fontSize: 7,
                                               letterSpacing: 1.25,
-                                              color: Colors.white,
+                                              color: white,
                                             ),
                                           ),
                                           Text(
@@ -229,7 +230,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
                                               fontWeight: FontWeight.w200,
                                               fontSize: 7,
                                               letterSpacing: 1.25,
-                                              color: Colors.white,
+                                              color: white,
                                             ),
                                           ),
                                         ],
@@ -312,14 +313,14 @@ class CustomThumbShape extends SliderComponentShape {
     final Canvas canvas = context.canvas;
 
     final Paint borderPaint = Paint()
-      ..color = sliderTheme.thumbColor ?? Colors.white
+      ..color = sliderTheme.thumbColor ?? white
       ..style = PaintingStyle.stroke
       ..strokeWidth = 6.0;
 
     canvas.drawCircle(center, _thumbRadius - 3, borderPaint);
 
     final Paint thumbPaint = Paint()
-      ..color = const Color(0xFFC25325)
+      ..color = orange
       ..style = PaintingStyle.fill;
 
     canvas.drawCircle(center, _thumbRadius - 5, thumbPaint);

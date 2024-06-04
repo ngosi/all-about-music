@@ -1,3 +1,4 @@
+import 'package:all_about_music/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
@@ -23,14 +24,14 @@ class AccountTypeScreen extends StatelessWidget {
                 () => context.go('/artist'),
                 "I'M AN ARTIST",
                 fillOrange: false,
-                borderColor: const Color(0xFFE88B38),
+                borderColor: lightOrange,
               ),
               const SizedBox(height: 20),
               Button(
                 () => context.go('/fan'),
                 "I'M A FAN",
                 fillOrange: false,
-                borderColor: const Color(0xFFFFBF68),
+                borderColor: yellow,
               ),
             ],
           ),

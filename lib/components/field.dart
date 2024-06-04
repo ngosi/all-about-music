@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
+import 'package:all_about_music/utils/colors.dart';
+
 enum FieldType { email, password, firstName, lastName, phone, stageName, bio, custom }
 
 class Field extends StatelessWidget {
@@ -30,14 +32,14 @@ class Field extends StatelessWidget {
             },
             style: const TextStyle(
               fontFamily: 'Cypher1',
-              color: Color(0xFF959292),
+              color: grey3,
             ),
           ),
         ),
         ClipRRect(
           borderRadius: BorderRadius.circular(15),
           child: Container(
-            color: Colors.black,
+            color: black,
             child: Stack(
               children: [
                 Positioned.fill(
@@ -49,7 +51,7 @@ class Field extends StatelessWidget {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
                             gradient: const LinearGradient(
-                              colors: [Color(0xFF3C424B), Color(0xFF252625)],
+                              colors: [yellow, darkGrey3],
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
                             ),
@@ -80,17 +82,17 @@ class Field extends StatelessWidget {
                   obscuringCharacter: '*',
                   style: const TextStyle(
                     fontFamily: 'HelveticaNeue',
-                    color: Color(0xFF707070),
+                    color: grey,
                   ),
-                  cursorColor: const Color(0xFFC25325),
+                  cursorColor: orange,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15),
-                      borderSide: const BorderSide(color: Color(0xFFC25325)),
+                      borderSide: const BorderSide(color: orange),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15),
-                      borderSide: const BorderSide(color: Color(0xFFC25325)),
+                      borderSide: const BorderSide(color: orange),
                     ),
                   ),
                 ),

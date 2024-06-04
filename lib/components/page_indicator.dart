@@ -1,3 +1,4 @@
+import 'package:all_about_music/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class PageIndicator extends StatefulWidget {
@@ -21,9 +22,9 @@ class _PageIndicatorState extends State<PageIndicator> {
           child: Container(
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Color(index == widget.index ? 0xFFC25325 : 0xFF434343),
+              color: index == widget.index ? orange : darkGrey,
               border: Border.all(
-                color: const Color(0xFF707070),
+                color: grey,
               ),
             ),
             width: 12,

@@ -1,9 +1,11 @@
-import 'package:all_about_music/utils/utils.dart';
 import 'package:flutter/material.dart';
+
 import 'package:go_router/go_router.dart';
 
 import 'package:all_about_music/components/button.dart';
 import 'package:all_about_music/components/field.dart';
+import 'package:all_about_music/utils/colors.dart';
+import 'package:all_about_music/utils/utils.dart';
 import 'package:all_about_music/utils/firebase_methods.dart' as fire;
 
 class SignupScreen extends StatefulWidget {
@@ -57,7 +59,7 @@ class _SignupScreenState extends State<SignupScreen> {
           height: MediaQuery.of(context).size.height,
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFF404041), Color(0xFF252625)],
+              colors: [darkGrey2, darkGrey3],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
@@ -71,7 +73,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     children: [
                       GestureDetector(
                         onTap: () => context.go('/login'),
-                        child: const Icon(Icons.arrow_back, color: Color(0xFFC25325)),
+                        child: const Icon(Icons.arrow_back, color: orange),
                       ),
                       const Align(
                         alignment: Alignment.bottomCenter,
@@ -79,7 +81,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           'SIGN UP',
                           style: TextStyle(
                             fontFamily: 'Poppins',
-                            color: Color(0xFFC25325),
+                            color: orange,
                           ),
                         ),
                       ),
@@ -97,7 +99,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               'AllAboutMusic.com',
                               style: TextStyle(
                                 fontFamily: 'Cypher1',
-                                color: Color(0xFF959292),
+                                color: grey3,
                               ),
                             ),
                           ),

@@ -6,11 +6,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-import 'package:all_about_music/routes.dart';
+import 'routes.dart';
 import 'firebase_options.dart';
+import 'utils/colors.dart';
 
+// dart run flutter_native_splash:create
 // flutter emulators --launch Pixel_4_API_34
 // firebase emulators:start --import ./emulators_data --export-on-exit
+// flutter run --enable-software-rendering
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,7 +44,7 @@ class App extends StatelessWidget {
       title: 'All About Music',
       theme: ThemeData(
         useMaterial3: true,
-        colorSchemeSeed: const Color(0xFFC25325),
+        colorSchemeSeed: orange,
       ),
     );
   }

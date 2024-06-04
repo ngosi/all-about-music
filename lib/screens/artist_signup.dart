@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:all_about_music/components/button.dart';
 import 'package:all_about_music/components/field.dart';
+import 'package:all_about_music/utils/colors.dart';
 import 'package:all_about_music/utils/firebase_methods.dart';
 import 'package:all_about_music/utils/utils.dart';
 
@@ -66,7 +67,7 @@ class _ArtistSignupScreenState extends State<ArtistSignupScreen> {
         height: MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFF404041), Color(0xFF252625)],
+            colors: [darkGrey2, darkGrey3],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -81,7 +82,7 @@ class _ArtistSignupScreenState extends State<ArtistSignupScreen> {
                     children: [
                       GestureDetector(
                         onTap: () => context.go('/login'),
-                        child: const Icon(Icons.arrow_back, color: Color(0xFFC25325)),
+                        child: const Icon(Icons.arrow_back, color: orange),
                       ),
                       const Align(
                         alignment: Alignment.bottomCenter,
@@ -89,7 +90,7 @@ class _ArtistSignupScreenState extends State<ArtistSignupScreen> {
                           'SIGN UP',
                           style: TextStyle(
                             fontFamily: 'Poppins',
-                            color: Color(0xFFC25325),
+                            color: orange,
                           ),
                         ),
                       ),
@@ -107,7 +108,7 @@ class _ArtistSignupScreenState extends State<ArtistSignupScreen> {
                               'AllAboutMusic.com',
                               style: TextStyle(
                                 fontFamily: 'Cypher1',
-                                color: Color(0xFF959292),
+                                color: grey3,
                               ),
                             ),
                           ),
@@ -143,7 +144,7 @@ class _ArtistSignupScreenState extends State<ArtistSignupScreen> {
                   IconButton(
                     onPressed: () => _selectImage(context),
                     icon: const Icon(Icons.upload),
-                    color: Colors.white,
+                    color: white,
                   ),
                   Button(_signUp, 'Submit', isLoading: _isLoading),
                 ],
