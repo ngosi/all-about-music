@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Music {
   final String songId;
   final String uid;
@@ -5,6 +7,8 @@ class Music {
   final String author;
   final String songUrl;
   final String? coverUrl;
+  final List<String> votes;
+  final int votesCount;
 
   Music({
     required this.songId,
@@ -12,7 +16,9 @@ class Music {
     required this.title,
     required this.author,
     required this.songUrl,
-    required this.coverUrl
+    required this.coverUrl,
+    required this.votes,
+    required this.votesCount,
   });
 
   Map<String, dynamic> toMap() => {
@@ -22,5 +28,8 @@ class Music {
     'author': author,
     'songUrl': songUrl,
     'coverUrl': coverUrl,
+    'votes': votes,
+    'votesCount': votesCount,
+    'timestamp': FieldValue.serverTimestamp(),
   };
 }

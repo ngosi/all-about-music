@@ -83,10 +83,13 @@ Future<String> artistSignup({
   required String? state,
   required String? city,
   required Uint8List? bannerImage,
+  required Uint8List? cardImage,
+  String? followerCount,
 }) async {
   try {
-    if (stageName.isNotEmpty && bio.isNotEmpty && country.isNotEmpty) {
+    if (stageName.isNotEmpty && bio.isNotEmpty && country.isNotEmpty && (followerCount == null || int.tryParse(followerCount) != null)) {
       String? bannerUrl = bannerImage != null ? await uploadFile('banners', bannerImage) : null;
+      String? cardUrl = cardImage != null ? await uploadFile('cards', cardImage) : null;
       Artist artist = Artist(
         stageName: stageName,
         bio: bio,
@@ -94,15 +97,17 @@ Future<String> artistSignup({
         state: state,
         city: city,
         bannerUrl: bannerUrl,
+        cardUrl: cardUrl,
         demos: [],
-        fans: [],
+        followers: [],
+        followerCount: int.parse(followerCount!),
         messages: [],
       );
 
       await _firestore.collection('artists').doc(_auth.currentUser!.uid).set(artist.toMap());
       return 'success';
     }
-    return 'empty fields';
+    return 'empty fields or invalid followersCount';
   } catch (err) {
     return err.toString();
   }
@@ -113,9 +118,10 @@ Future<String> uploadDemo({
   required String author,
   required Uint8List? demo,
   required Uint8List? cover,
+  String? votesCount,
 }) async {
   try {
-    if (title.isNotEmpty && author.isNotEmpty && demo != null) {
+    if (title.isNotEmpty && author.isNotEmpty && demo != null && (votesCount == null || int.tryParse(votesCount) != null)) {
       String songId = const Uuid().v1();
       String songUrl = await uploadSong('songs', demo, songId);
       String? coverUrl = cover != null ? await uploadSong('covers', cover, songId) : null;
@@ -126,6 +132,8 @@ Future<String> uploadDemo({
         author: author,
         songUrl: songUrl,
         coverUrl: coverUrl,
+        votes: [],
+        votesCount: int.parse(votesCount!),
       );
       _firestore.collection('demos').doc(songId).set(music.toMap());
       _firestore.collection('artists').doc(_auth.currentUser!.uid).update({
@@ -133,7 +141,7 @@ Future<String> uploadDemo({
       });
       return 'success';
     }
-    return 'song, cover art, title, and author required';
+    return 'song, cover art, title, and author required\ninvalid votesCount';
   } catch (err) {
     return err.toString();
   }

@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Artist {
   final String stageName;
   final String bio;
@@ -5,8 +7,10 @@ class Artist {
   final String? state;
   final String? city;
   final String? bannerUrl;
+  final String? cardUrl;
   final List<String> demos;
-  final List<String> fans;
+  final List<String> followers;
+  final int followerCount;
   final List messages;
 
   Artist({
@@ -16,8 +20,10 @@ class Artist {
     required this.state,
     required this.city,
     required this.bannerUrl,
+    required this.cardUrl,
     required this.demos,
-    required this.fans,
+    required this.followers,
+    required this.followerCount,
     required this.messages,
   });
 
@@ -27,9 +33,12 @@ class Artist {
     'country': country,
     'state': state,
     'city': city,
-    'image': bannerUrl,
+    'bannerUrl': bannerUrl,
+    'cardUrl': cardUrl,
     'demos': demos,
-    'fans': fans,
+    'followers': followers,
+    'followerCount': followerCount,
     'messages': messages,
+    'timestamp': FieldValue.serverTimestamp(),
   };
 }

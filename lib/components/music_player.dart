@@ -19,6 +19,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
   late String _title;
   late String _author;
   late String? _coverUrl;
+  late String _songUrl;
   bool _isLoading = true;
 
   final AudioPlayer _audioPlayer = AudioPlayer();
@@ -39,7 +40,8 @@ class _MusicPlayerState extends State<MusicPlayer> {
     _title = snap['title'];
     _author = snap['author'];
     _coverUrl = snap['coverUrl'];
-    _audioPlayer.setSourceUrl(snap['songUrl']);
+    _songUrl = snap['songUrl'];
+    _audioPlayer.setSourceUrl(_songUrl);
     _audioPlayer.onDurationChanged.listen((Duration duration) {
       setState(() {
         _duration = duration;
@@ -54,7 +56,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
     });
     _audioPlayer.onPlayerComplete.listen((_) {
       _stop();
-      _audioPlayer.setSourceUrl(snap['songUrl']);
+      _audioPlayer.setSourceUrl(_songUrl);
     });
 
     setState(() {
@@ -169,7 +171,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
                                 child: Icon(
                                   _isPlaying
                                     ? Icons.pause
-                                    : Icons.play_arrow,
+                                    : Icons.play_arrow_rounded,
                                   color: black,
                                   size: 36,
                                 ),

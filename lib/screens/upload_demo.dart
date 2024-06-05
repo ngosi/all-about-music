@@ -20,6 +20,7 @@ class UploadDemoScreen extends StatefulWidget {
 class _UploadDemoScreenState extends State<UploadDemoScreen> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _authorController = TextEditingController();
+  final TextEditingController _votesController = TextEditingController();
   bool _isLoading = false;
   Uint8List? _demo;
   Uint8List? _cover;
@@ -33,6 +34,7 @@ class _UploadDemoScreenState extends State<UploadDemoScreen> {
       author: _authorController.text,
       demo: _demo,
       cover: _cover,
+      votesCount: _votesController.text,
     );
     setState(() {
       _isLoading = false;
@@ -56,6 +58,7 @@ class _UploadDemoScreenState extends State<UploadDemoScreen> {
   void dispose() {
     _titleController.dispose();
     _authorController.dispose();
+    _votesController.dispose();
     super.dispose();
   }
 
@@ -67,7 +70,7 @@ class _UploadDemoScreenState extends State<UploadDemoScreen> {
           height: MediaQuery.of(context).size.height,
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [darkGrey2, darkGrey3],
+              colors: [darkGrey2, darkGrey4],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
@@ -138,8 +141,19 @@ class _UploadDemoScreenState extends State<UploadDemoScreen> {
                       ],
                     ),
                   ),
+                  const Text(
+                    'How many votes does this demo have?',
+                    style: TextStyle(
+                      color: Colors.red,
+                    ),
+                  ),
+                  TextField(
+                    keyboardType: TextInputType.number,
+                    controller: _votesController,
+                    style: const TextStyle(color: grey),
+                  ),
                   const Spacer(),
-                  Button(() => _submit(), 'Upload', isLoading: _isLoading),
+                  Button('Upload', () => _submit(), isLoading: _isLoading),
                 ],
               ),
             ),

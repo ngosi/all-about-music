@@ -54,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
           height: MediaQuery.of(context).size.height,
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [darkGrey2, darkGrey3],
+              colors: [darkGrey2, darkGrey4],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
@@ -144,9 +144,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                   ),
-                  Button(login, 'Login', isLoading: _isLoading),
+                  Button('Login', login, isLoading: _isLoading),
                   const Spacer(),
-                  Button(() => context.go('/signup'), 'Sign Up', fillOrange: false),
+                  Button('Sign Up', () => context.go('/signup'), fillOrange: false),
                 ],
               ),
             ),

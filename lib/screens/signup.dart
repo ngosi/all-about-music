@@ -59,7 +59,7 @@ class _SignupScreenState extends State<SignupScreen> {
           height: MediaQuery.of(context).size.height,
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [darkGrey2, darkGrey3],
+              colors: [darkGrey2, darkGrey4],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
@@ -112,7 +112,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   Field(_emailController, FieldType.email),
                   Field(_passwordController, FieldType.password),
                   const Spacer(),
-                  Button(signUp, 'Sign Up', isLoading: _isLoading),
+                  Button('Sign Up', signUp, isLoading: _isLoading),
                 ],
               ),
             ),

@@ -13,6 +13,7 @@
 .history
 .svn/
 emulators_data
+commands.txt
 
 # IntelliJ related
 *.iml

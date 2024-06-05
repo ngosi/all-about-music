@@ -24,6 +24,7 @@ dependencies:
   uuid: ^4.4.0
   audioplayers: ^6.0.0
   flutter_native_splash: ^2.4.0
+  intl: ^0.19.0
 
 dev_dependencies:
   flutter_test:
@@ -39,14 +40,17 @@ flutter:
     - assets/images/onboarding1.png
     - assets/images/onboarding2.png
     - assets/images/onboarding3.png
-#    - assets/images/music_cover.png
-#    - assets/images/rapper.png
+    - assets/images/fan.png
+    - assets/images/artist.png
     - assets/icons/gear.svg
     - assets/icons/menu.svg
+    - assets/icons/back.svg
+    - assets/icons/pin.svg
     - assets/icons/music.svg
     - assets/icons/person.svg
     - assets/icons/podcast.svg
     - assets/icons/settings.svg
+    - assets/icons/clock.svg
 
   fonts:
     - family: Cypher1
@@ -76,4 +80,4 @@ flutter_native_splash:
   background_image: "assets/images/splash.png"
   android_12:
     color: "#252625"
-    image: "assets/images/logo.png"
+    image: "assets/images/splash-logo.png"

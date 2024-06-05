@@ -1,6 +1,59 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="17.992" height="20.302" viewBox="0 0 17.992 20.302">
-  <g id="Icon_akar-person" data-name="Icon akar-person" transform="translate(-3.895 -2)">
-    <path id="Path_12" data-name="Path 12" d="M19.651,7.575A4.575,4.575,0,1,1,15.075,3a4.575,4.575,0,0,1,4.575,4.575Z" transform="translate(-2.184)" fill="none" stroke="#c15324" stroke-width="2"/>
-    <path id="Path_13" data-name="Path 13" d="M17.466,21h.322a2.745,2.745,0,0,1,2.723,2.4l.358,2.859a1.83,1.83,0,0,1-1.816,2.057H6.729a1.83,1.83,0,0,1-1.816-2.057L5.269,23.4A2.745,2.745,0,0,1,7.994,21h.321" transform="translate(0 -7.019)" fill="none" stroke="#c15324" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="17.992"
+   height="20.302"
+   viewBox="0 0 17.992 20.302"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="person.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="40.439365"
+     inkscape:cx="9.0011303"
+     inkscape:cy="10.151"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <g
+     id="Icon_akar-person"
+     data-name="Icon akar-person"
+     transform="translate(-3.895 -2)">
+    <path
+       id="Path_12"
+       data-name="Path 12"
+       d="M19.651,7.575A4.575,4.575,0,1,1,15.075,3a4.575,4.575,0,0,1,4.575,4.575Z"
+       transform="translate(-2.184)"
+       fill="none"
+       stroke="#c15324"
+       stroke-width="2"
+       style="stroke:#aaaaaa;stroke-opacity:1" />
+    <path
+       id="Path_13"
+       data-name="Path 13"
+       d="M17.466,21h.322a2.745,2.745,0,0,1,2.723,2.4l.358,2.859a1.83,1.83,0,0,1-1.816,2.057H6.729a1.83,1.83,0,0,1-1.816-2.057L5.269,23.4A2.745,2.745,0,0,1,7.994,21h.321"
+       transform="translate(0 -7.019)"
+       fill="none"
+       stroke="#c15324"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       stroke-width="2"
+       style="stroke:#aaaaaa;stroke-opacity:1" />
   </g>
 </svg>

@@ -10,11 +10,6 @@ import 'routes.dart';
 import 'firebase_options.dart';
 import 'utils/colors.dart';
 
-// dart run flutter_native_splash:create
-// flutter emulators --launch Pixel_4_API_34
-// firebase emulators:start --import ./emulators_data --export-on-exit
-// flutter run --enable-software-rendering
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -41,7 +36,7 @@ class App extends StatelessWidget {
     return MaterialApp.router(
       routerConfig: Routes.router,
       debugShowCheckedModeBanner: false,
-      title: 'All About Music',
+      title: 'AllAboutMusic',
       theme: ThemeData(
         useMaterial3: true,
         colorSchemeSeed: orange,

@@ -21,13 +21,11 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Future.delayed(const Duration(seconds: 2), () {
       // FirebaseAuth.instance.signOut();
-      late bool loggedIn = FirebaseAuth.instance.currentUser != null;
-      if (!loggedIn) {
+      if (FirebaseAuth.instance.currentUser == null) {
         context.go('/onboarding');
+      } else {
+        context.go('/profile');
       }
-      isArtist().then((isArtist) {
-        context.go(isArtist ? '/profile' : '/fan');
-      });
     });
   }
 

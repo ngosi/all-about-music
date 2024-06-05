@@ -51,7 +51,7 @@ class Field extends StatelessWidget {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
                             gradient: const LinearGradient(
-                              colors: [yellow, darkGrey3],
+                              colors: [grey4, darkGrey4],
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
                             ),
@@ -65,7 +65,7 @@ class Field extends StatelessWidget {
                   child: BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
                     child: Container(
-                      height: 23,
+                      height: 28,
                     ),
                   ),
                 ),

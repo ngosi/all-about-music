@@ -13,29 +13,41 @@ class AccountTypeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: DiagonalContainer(
-          doubleBorder: true,
-          child: DiagonalContainerContents(
-            doubleBorder: true,
-            hasLine: false,
-            contents: [
-              Button(
-                () => context.go('/artist'),
-                "I'M AN ARTIST",
-                fillOrange: false,
-                borderColor: lightOrange,
-              ),
-              const SizedBox(height: 20),
-              Button(
-                () => context.go('/fan'),
-                "I'M A FAN",
-                fillOrange: false,
-                borderColor: yellow,
-              ),
-            ],
+      body: Stack(
+        children: [
+          const Image(image: AssetImage('assets/images/artist.png')),
+          const Align(
+            alignment: Alignment.bottomCenter,
+            child: Image(
+              image: AssetImage('assets/images/fan.png'),
+              fit: BoxFit.fitWidth,
+            ),
           ),
-        ),
+          Center(
+            child: DiagonalContainer(
+              doubleBorder: true,
+              child: DiagonalContainerContents(
+                doubleBorder: true,
+                hasLine: false,
+                contents: [
+                  Button(
+                    "I'M AN ARTIST",
+                    () => context.go('/artist'),
+                    fillOrange: false,
+                    borderColor: lightOrange,
+                  ),
+                  const SizedBox(height: 20),
+                  Button(
+                    "I'M A FAN",
+                    () => context.go('/fan'),
+                    fillOrange: false,
+                    borderColor: yellow,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

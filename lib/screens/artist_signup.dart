@@ -21,11 +21,13 @@ class ArtistSignupScreen extends StatefulWidget {
 class _ArtistSignupScreenState extends State<ArtistSignupScreen> {
   final TextEditingController _stageNameController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
+  final TextEditingController _followersController = TextEditingController();
   bool _isLoading = false;
   String _country = "";
   String? _state;
   String? _city;
   Uint8List? _bannerImage;
+  Uint8List? _cardImage;
 
   void _signUp() async {
     setState(() {
@@ -38,6 +40,8 @@ class _ArtistSignupScreenState extends State<ArtistSignupScreen> {
       state: _state,
       city: _city,
       bannerImage: _bannerImage,
+      cardImage: _cardImage,
+      followerCount: _followersController.text,
     );
     setState(() {
       _isLoading = false;
@@ -49,14 +53,19 @@ class _ArtistSignupScreenState extends State<ArtistSignupScreen> {
     }
   }
 
-  void _selectImage(BuildContext context) async {
+  void _selectBanner(BuildContext context) async {
     _bannerImage = await pickImage(context);
+  }
+
+  void _selectCard(BuildContext context) async {
+    _cardImage = await pickImage(context);
   }
 
   @override
   void dispose() {
     _stageNameController.dispose();
     _bioController.dispose();
+    _followersController.dispose();
     super.dispose();
   }
 
@@ -67,7 +76,7 @@ class _ArtistSignupScreenState extends State<ArtistSignupScreen> {
         height: MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [darkGrey2, darkGrey3],
+            colors: [darkGrey2, darkGrey4],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -141,12 +150,63 @@ class _ArtistSignupScreenState extends State<ArtistSignupScreen> {
                       },
                     ),
                   ),
-                  IconButton(
-                    onPressed: () => _selectImage(context),
-                    icon: const Icon(Icons.upload),
-                    color: white,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          children: [
+                            const Text(
+                              'UPLOAD BANNER',
+                              style: TextStyle(
+                                fontFamily: 'Poppins',
+                                color: grey,
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () => _selectBanner(context),
+                              icon: const Icon(Icons.upload),
+                              color: white,
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            const SizedBox(
+                              width: 100,
+                              child: Text(
+                                'UPLOAD ARTIST CARD',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  color: grey,
+                                ),
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () => _selectCard(context),
+                              icon: const Icon(Icons.upload),
+                              color: white,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                  Button(_signUp, 'Submit', isLoading: _isLoading),
+                  const Text(
+                    'How many followers does this artist have?',
+                    style: TextStyle(
+                      color: Colors.red,
+                    ),
+                  ),
+                  TextField(
+                    keyboardType: TextInputType.number,
+                    controller: _followersController,
+                    style: const TextStyle(color: grey),
+                  ),
+                  const SizedBox(height: 24),
+                  Button('Submit', _signUp, isLoading: _isLoading),
                 ],
               ),
             ),

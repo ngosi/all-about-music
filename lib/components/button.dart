@@ -11,8 +11,8 @@ class Button extends StatelessWidget {
   final bool textOrange;
   final double height;
   const Button(
-    this.onPressed,
-    this.text, {
+    this.text,
+    this.onPressed, {
       super.key,
       this.isLoading = false,
       this.fillOrange = true,
@@ -30,7 +30,7 @@ class Button extends StatelessWidget {
         gradient: LinearGradient(
           colors: fillOrange
             ? const [orange2, darkOrange]
-            : const [darkGrey2, darkGrey3],
+            : const [darkGrey2, darkGrey4],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
