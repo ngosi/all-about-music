@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:go_router/go_router.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:audioplayers/audioplayers.dart';
 
@@ -71,62 +72,77 @@ class _SmallMusicPlayerState extends State<SmallMusicPlayer> {
       ),
       child: Row(
         children: [
-          AspectRatio(
-            aspectRatio: 1,
-            child: Container(
-              height: double.infinity,
-              decoration: BoxDecoration(
+          GestureDetector(
+            onTap: () => context.push('/song${widget.songId}'),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: Container(
+                height: double.infinity,
                 color: grey,
-                borderRadius: BorderRadius.circular(16),
-                image: _isLoading || _coverUrl == null ? null : DecorationImage(
-                  image: NetworkImage(_coverUrl!)
+                child: _isLoading || _coverUrl == null ? null : Image(
+                  image: NetworkImage(_coverUrl!),
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
           ),
           const SizedBox(width: 18),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                _title,
-                style: const TextStyle(
-                  color: white,
-                  fontFamily: 'Lato',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
+          _isLoading
+            ? const CircularProgressIndicator(color: white)
+            : Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GestureDetector(
+                        onTap: () => context.push('/song${widget.songId}'),
+                        child: Text(
+                          _title,
+                          style: const TextStyle(
+                            color: white,
+                            fontFamily: 'Lato',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Text(
+                          _author,
+                          style: const TextStyle(
+                            color: grey,
+                            fontFamily: 'Lato',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  FilledButton(
+                    onPressed: pauseOrResume,
+                    style: FilledButton.styleFrom(
+                      padding: EdgeInsets.zero,
+                      visualDensity: VisualDensity.compact,
+                      fixedSize: const Size.fromHeight(40),
+                      shape: const CircleBorder(),
+                      backgroundColor: orange,
+                    ),
+                    child: Icon(
+                      _isPlaying
+                        ? Icons.pause
+                        : Icons.play_arrow_rounded,
+                      color: white,
+                      size: 30,
+                    ),
+                  ),
+                ],
               ),
-              Text(
-                _author,
-                style: const TextStyle(
-                  color: grey,
-                  fontFamily: 'Lato',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-              ),
-            ],
-          ),
-          const Spacer(),
-          FilledButton(
-            onPressed: pauseOrResume,
-            style: FilledButton.styleFrom(
-              padding: EdgeInsets.zero,
-              visualDensity: VisualDensity.compact,
-              fixedSize: const Size.fromHeight(40),
-              shape: const CircleBorder(),
-              backgroundColor: orange,
             ),
-            child: Icon(
-              _isPlaying
-                ? Icons.pause
-                : Icons.play_arrow_rounded,
-              color: white,
-              size: 30,
-            ),
-          ),
         ],
       ),
     );

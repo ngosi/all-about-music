@@ -1,10 +1,10 @@
+import 'package:all_about_music/screens/song.dart';
 import 'package:flutter/widgets.dart';
 
 import 'package:go_router/go_router.dart';
 
 import 'package:all_about_music/screens/account_type.dart';
 import 'package:all_about_music/screens/artist_signup.dart';
-import 'package:all_about_music/screens/fan.dart';
 import 'package:all_about_music/screens/upload_demo.dart';
 import 'package:all_about_music/screens/login.dart';
 import 'package:all_about_music/screens/onboarding.dart';
@@ -33,6 +33,11 @@ class Routes {
         path: entry.key,
         builder: (context, state) => entry.value,
       );
-    }).toList(),
+    }).toList() + [
+      GoRoute(
+        path: '/song/:songId',
+        builder: (context, state) => SongScreen(state.pathParameters['songId']!),
+      ),
+    ],
   );
 }

@@ -57,19 +57,22 @@ class _OnboardingState extends State<Onboarding> {
       body: SizedBox.expand(
         child: Stack(
           children: [
-            ListView.builder(
-              controller: _imageController,
-              scrollDirection: Axis.horizontal,
-              itemCount: 3,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                return Image(
-                  image: AssetImage(_onboardingImages[index % 3]),
-                  fit: BoxFit.fitWidth,
-                  width: MediaQuery.of(context).size.width,
-                  alignment: Alignment.topCenter,
-                );
-              },
+            SizedBox(
+              height: MediaQuery.of(context).size.height - 284,
+              child: ListView.builder(
+                controller: _imageController,
+                scrollDirection: Axis.horizontal,
+                itemCount: 3,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return Image(
+                    image: AssetImage(_onboardingImages[index % 3]),
+                    fit: BoxFit.cover,
+                    width: MediaQuery.of(context).size.width,
+                    alignment: Alignment.topCenter,
+                  );
+                },
+              ),
             ),
             SafeArea(
               child: Padding(

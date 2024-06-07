@@ -9,7 +9,8 @@ import 'package:all_about_music/utils/colors.dart';
 
 class MusicPlayer extends StatefulWidget {
   final String songId;
-  const MusicPlayer(this.songId, {super.key});
+  final VoidCallback? onTap;
+  const MusicPlayer(this.songId, {this.onTap, super.key});
 
   @override
   State<MusicPlayer> createState() => _MusicPlayerState();
@@ -122,8 +123,12 @@ class _MusicPlayerState extends State<MusicPlayer> {
         child: _isLoading
           ? const Center(child: CircularProgressIndicator(color: white))
           : Column(
-            mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              Expanded(
+                child: GestureDetector(
+                  onTap: widget.onTap,
+                ),
+              ),
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: BackdropFilter(
@@ -139,21 +144,36 @@ class _MusicPlayerState extends State<MusicPlayer> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            _title,
-                            style: const TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontSize: 17,
-                              color: white,
-                            ),
-                          ),
-                          Text(
-                            _author,
-                            style: const TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontSize: 10,
-                              color: whiteishPurple,
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    _title,
+                                    style: const TextStyle(
+                                      fontFamily: 'Montserrat',
+                                      fontSize: 17,
+                                      color: white,
+                                    ),
+                                  ),
+                                  Text(
+                                    _author,
+                                    style: const TextStyle(
+                                      fontFamily: 'Montserrat',
+                                      fontSize: 10,
+                                      color: whiteishPurple,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              if (widget.onTap != null)
+                                GestureDetector(
+                                  onTap: widget.onTap,
+                                  child: const Icon(Icons.arrow_forward_ios, color: white),
+                                ),
+                            ],
                           ),
                           const SizedBox(height: 8),
                           Row(

@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
 Future<Uint8List?> pickImage(BuildContext context, {ImageSource? source}) async {
@@ -21,7 +22,7 @@ Future<Uint8List?> pickImage(BuildContext context, {ImageSource? source}) async 
               padding: const EdgeInsets.all(20),
               child: const Text('Take a photo'),
               onPressed: () async {
-                Navigator.of(context).pop();
+                context.pop();
                 Uint8List? image = await pickImage(context, source: ImageSource.camera);
                 completer.complete(image);
               },
@@ -30,7 +31,7 @@ Future<Uint8List?> pickImage(BuildContext context, {ImageSource? source}) async 
               padding: const EdgeInsets.all(20),
               child: const Text('Choose from gallery'),
               onPressed: () async {
-                Navigator.of(context).pop();
+                context.pop();
                 Uint8List? image = await pickImage(context, source: ImageSource.gallery);
                 completer.complete(image);
               },
@@ -39,7 +40,7 @@ Future<Uint8List?> pickImage(BuildContext context, {ImageSource? source}) async 
               padding: const EdgeInsets.all(20),
               child: const Text('Cancel'),
               onPressed: () {
-                Navigator.of(context).pop();
+                context.pop();
               },
             ),
           ],

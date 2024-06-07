@@ -10,6 +10,7 @@ class Button extends StatelessWidget {
   final Color borderColor;
   final bool textOrange;
   final double height;
+  final double? borderRadius;
   const Button(
     this.text,
     this.onPressed, {
@@ -19,6 +20,7 @@ class Button extends StatelessWidget {
       this.borderColor = grey,
       this.textOrange = false,
       this.height = 60,
+      this.borderRadius,
     }
   );
 
@@ -26,7 +28,7 @@ class Button extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(26),
+        borderRadius: BorderRadius.circular(borderRadius ?? height-34),
         gradient: LinearGradient(
           colors: fillOrange
             ? const [orange2, darkOrange]
@@ -44,7 +46,7 @@ class Button extends StatelessWidget {
             backgroundColor: MaterialStateProperty.all(Colors.transparent),
             shape: MaterialStateProperty.all(
               RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(height-34),
+                borderRadius: BorderRadius.circular(borderRadius ?? height-34),
                 side: BorderSide(
                   color: borderColor,
                 ),
@@ -53,7 +55,8 @@ class Button extends StatelessWidget {
           ),
           child: isLoading
             ? const CircularProgressIndicator(color: white)
-            : Text(
+            : FittedBox(
+              child: Text(
                 text,
                 style: TextStyle(
                   color: textOrange ? lightOrange : white,
@@ -61,6 +64,7 @@ class Button extends StatelessWidget {
                   fontSize: 16,
                 ),
               ),
+            ),
         ),
       ),
     );

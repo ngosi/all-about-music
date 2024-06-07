@@ -56,7 +56,9 @@ class _SignupScreenState extends State<SignupScreen> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          height: MediaQuery.of(context).size.height,
+          constraints: BoxConstraints(
+            minHeight: MediaQuery.of(context).size.height,
+          ),
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [darkGrey2, darkGrey4],
@@ -111,7 +113,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   Field(_lastNameController, FieldType.lastName),
                   Field(_emailController, FieldType.email),
                   Field(_passwordController, FieldType.password),
-                  const Spacer(),
+                  const SizedBox(height: 48),
                   Button('Sign Up', signUp, isLoading: _isLoading),
                 ],
               ),

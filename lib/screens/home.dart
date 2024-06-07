@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import 'package:all_about_music/components/card.dart';
@@ -34,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void getData() async {
     QuerySnapshot<Map<String, dynamic>> snap = await FirebaseFirestore.instance
         .collection('demos').orderBy('votesCount', descending: true).get();
-    int limit = 5;
+    int limit = 4;
     for (final doc in snap.docs) {
       _topDemos.add(doc.data()['songId']);
       if (limit == 0) {
@@ -44,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
     snap = await FirebaseFirestore.instance
         .collection('artists').orderBy('followerCount', descending: true).get();
-    limit = 5;
+    limit = 4;
     for (final doc in snap.docs) {
       _artistCardUrls.add(doc.data()['cardUrl']);
       _artistNames.add(doc.data()['stageName']);
@@ -135,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemBuilder: (context, index) {
                         return Row(
                           children: [
-                            MusicPlayer(_topDemos[index]),
+                            MusicPlayer(_topDemos[index], onTap: () => context.push('/song/${_topDemos[index]}')),
                             const SizedBox(width: 24),
                           ],
                         );
@@ -146,10 +147,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   const Text(
                     'Next Round Table',
                     style: TextStyle(
-                        fontFamily: 'Lato',
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: white,
+                      fontFamily: 'Lato',
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: white,
                     ),
                   ),
                   const Divider(color: orange),

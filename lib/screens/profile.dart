@@ -224,8 +224,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                             ],
                           ),
-                          const Expanded(child: VerticalDivider(
-                            color: lightOrange, thickness: .75,)),
+                          const Expanded(
+                            child: VerticalDivider(
+                              color: lightOrange,
+                              thickness: .75,
+                            )
+                          ),
                           Column(
                             children: [
                               Text(
@@ -248,8 +252,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ],
                           ),
                           const
-                          Expanded(child: VerticalDivider(
-                            color: lightOrange, thickness: .75,)),
+                          Expanded(
+                            child: VerticalDivider(
+                              color: lightOrange,
+                              thickness: .75,
+                            ),
+                          ),
                           Column(
                             children: [
                               Text(
@@ -274,8 +282,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ],
                           ),
                           const
-                          Expanded(child: VerticalDivider(
-                            color: lightOrange, thickness: .75,)),
+                          Expanded(
+                            child: VerticalDivider(
+                              color: lightOrange,
+                              thickness: .75,
+                            ),
+                          ),
                           Column(
                             children: [
                               Text(
@@ -324,7 +336,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       children: _demos.map((songId) {
                         return Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: MusicPlayer(songId),
+                          child: MusicPlayer(songId, onTap: () => context.push('/song/$songId')),
                         );
                       }).toList(),
                     ),
