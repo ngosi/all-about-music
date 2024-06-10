@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:go_router/go_router.dart';
-
 import 'package:all_about_music/utils/colors.dart';
 
 class FanScreen extends StatelessWidget {
@@ -9,13 +7,6 @@ class FanScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: GestureDetector(
-          onTap: () => context.go('/onboarding'),
-          child: const Text('Fan Area', style: TextStyle(color: black)),
-        ),
-      ),
-    );
+    return const Center(child: Text('Fan Area', style: TextStyle(color: white)));
   }
 }

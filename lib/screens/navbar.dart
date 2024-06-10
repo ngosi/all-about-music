@@ -1,5 +1,5 @@
 import 'package:all_about_music/screens/fan.dart';
-import 'package:all_about_music/utils/firebase_methods.dart';
+import 'package:all_about_music/utils/firebase_functions.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';

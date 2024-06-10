@@ -1,8 +1,8 @@
 import 'dart:ui';
 
+import 'package:all_about_music/components/dotted_border.dart';
 import 'package:flutter/material.dart';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -12,6 +12,10 @@ import 'package:all_about_music/components/button.dart';
 import 'package:all_about_music/components/music_player.dart';
 import 'package:all_about_music/utils/utils.dart';
 import 'package:all_about_music/utils/colors.dart';
+import 'package:all_about_music/utils/firebase_functions.dart';
+import 'package:all_about_music/models/artist.dart';
+import 'package:all_about_music/models/music.dart';
+import 'package:all_about_music/models/user.dart' as model;
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -21,15 +25,11 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  late String _displayName;
-  late String _stageName;
-  late String _bio;
+  late User _user;
+  late Artist _artist;
+  late model.User _userModel;
   late String _address;
-  String? _bannerUrl;
-  late int _network;
-  late int _messages;
-  late int _fans;
-  late List<String> _demos;
+  final List<Music> _demos = [];
   bool _isLoading = true;
 
   @override
@@ -39,23 +39,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   void getData() async {
-    User user = FirebaseAuth.instance.currentUser!;
-    Map<String, dynamic> snap = (await FirebaseFirestore.instance
-        .collection('artists').doc(user.uid).get()).data()!;
-    _displayName = user.displayName!.toUpperCase();
-    _stageName = snap['stageName'].toString().toUpperCase();
-    _bio = snap['bio'];
-    _address = snap['state'] == null ? snap['country'] : '${snap['city']}, ${abrevState(snap['state'])}';
-    _bannerUrl = snap['bannerUrl'];
-    _messages = (snap['messages'] as List).length;
-    _fans = snap['followerCount'];
-    _demos = List<String>.from(snap['demos']);
-    snap = (await FirebaseFirestore.instance
-        .collection('users').doc(user.uid).get()).data()!;
-    _network = (snap['following'] as List).length;
+    _user = FirebaseAuth.instance.currentUser!;
+    _artist = await getArtist(_user.uid);
+    _userModel = await getUser(_user.uid);
+    _address = _artist.state == null ? _artist.country : '${_artist.city}, ${abrevState(_artist.state!)}';
+    for (final String songId in _artist.demos) {
+      _demos.add(await getMusic(songId));
+    }
     setState(() {
       _isLoading = false;
     });
+  }
+
+  void upload() {
+    if (_demos.isEmpty) {
+      context.go('/uploadDemo');
+    } else {
+      showSnackBar('Must be paid account to upload more demos.', context);
+    }
   }
 
   @override
@@ -69,12 +70,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
               width: double.infinity,
               height: 400,
               decoration: BoxDecoration(
-                image: _bannerUrl != null ? DecorationImage(
-                  image: NetworkImage(_bannerUrl!),
+                image: _artist.bannerUrl != null ? DecorationImage(
+                  image: NetworkImage(_artist.bannerUrl!),
                   fit: BoxFit.fitWidth,
                   alignment: Alignment.topCenter,
                 ) : null,
-                gradient: _bannerUrl == null
+                gradient: _artist.bannerUrl == null
                   ? const LinearGradient(
                     colors: [darkOrange, orange2],
                     begin: Alignment.bottomLeft,
@@ -112,7 +113,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              _displayName,
+                              _user.displayName!.toUpperCase(),
                               style: const TextStyle(
                                 fontFamily: 'Lato',
                                 fontWeight: FontWeight.w900,
@@ -160,27 +161,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              _stageName,
-                              style: const TextStyle(
-                                fontFamily: 'Lato',
-                                fontWeight: FontWeight.bold,
-                                fontSize: 24,
-                                color: white,
-                              ),
+                        Flexible(
+                          child: FittedBox(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  _artist.stageName.toUpperCase(),
+                                  style: const TextStyle(
+                                    fontFamily: 'Lato',
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 24,
+                                    color: white,
+                                  ),
+                                ),
+                                const Text(
+                                  'ARTIST NAME',
+                                  style: TextStyle(
+                                    fontFamily: 'Lato',
+                                    fontSize: 14,
+                                    color: orange,
+                                  ),
+                                ),
+                              ],
                             ),
-                            const Text(
-                              'ARTIST NAME',
-                              style: TextStyle(
-                                fontFamily: 'Lato',
-                                fontSize: 14,
-                                color: orange,
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
                         const Image(
                           image: AssetImage('assets/images/logo.png'),
@@ -191,7 +196,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 12),
                       child: Text(
-                        _bio,
+                        _artist.bio,
                         textAlign: TextAlign.justify,
                         style: const TextStyle(
                           fontFamily: 'Lato',
@@ -206,7 +211,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Column(
                             children: [
                               Text(
-                                _demos.length.toString(),
+                                _artist.demos.length.toString(),
                                 style: const TextStyle(
                                   fontFamily: 'Lato',
                                   fontWeight: FontWeight.bold,
@@ -233,7 +238,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Column(
                             children: [
                               Text(
-                                _fans.toString(),
+                                _artist.followerCount.toString(),
                                 style: const TextStyle(
                                   fontFamily: 'Lato',
                                   fontWeight: FontWeight.bold,
@@ -261,7 +266,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Column(
                             children: [
                               Text(
-                                _network.toString(),
+                                _userModel.following.length.toString(),
                                 style: const
                                 TextStyle(
                                   fontFamily: 'Lato',
@@ -291,7 +296,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Column(
                             children: [
                               Text(
-                                _messages.toString(),
+                                _artist.messages.length.toString(),
                                 style: const
                                 TextStyle(
                                   fontFamily: 'Lato',
@@ -317,7 +322,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     const SizedBox(height: 16),
                     Button(
                       'Upload Demo',
-                      () => context.go('/uploadDemo'),
+                      upload,
                       fillOrange: false,
                       borderColor: lightOrange,
                       textOrange: true,
@@ -333,13 +338,49 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     const Divider(color: grey),
                     Column(
-                      children: _demos.map((songId) {
+                      children: _demos.map((demo) {
                         return Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: MusicPlayer(songId, onTap: () => context.push('/song/$songId')),
+                          child: MusicPlayer(demo, onTap: () => context.push('/song/${demo.songId}')),
                         );
                       }).toList(),
                     ),
+                    const SizedBox(height: 8),
+                    if (_demos.isNotEmpty)
+                      DottedBorder(
+                        strokeWidth: 1.5,
+                        dashPattern: const [10, 9],
+                        color: grey,
+                        radius: const Radius.circular(10),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 18),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const Text(
+                                'Activate your Pro Account to add more demo tracks and create your digital catalog.',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                              ),
+                              const SizedBox(height: 12),
+                              Button(
+                                'Activate Membership',
+                                () {},
+                                height: 30,
+                                width: 150,
+                                borderColor: lightOrange,
+                                borderRadius: 30,
+                                fillOrange: false,
+                                textOrange: true,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     const SizedBox(height: 80),
                   ],
                 ),

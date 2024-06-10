@@ -1,15 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:all_about_music/utils/colors.dart';
 
 class ArtistCard extends StatelessWidget {
-  final String cardUrl;
-  final String artistName;
+  final String? cardUrl;
+  final String stageName;
   final int followerCount;
   const ArtistCard({
     super.key,
     required this.cardUrl,
-    required this.artistName,
+    required this.stageName,
     required this.followerCount
   });
 
@@ -19,13 +20,13 @@ class ArtistCard extends StatelessWidget {
       height: 250,
       width: 155,
       decoration: BoxDecoration(
-        color: white,
+        color: lightGrey,
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
           color: white,
         ),
-        image: DecorationImage(
-          image: NetworkImage(cardUrl),
+        image: cardUrl == null ? null : DecorationImage(
+          image: NetworkImage(cardUrl!),
           fit: BoxFit.cover,
         ),
       ),
@@ -47,12 +48,14 @@ class ArtistCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  artistName,
-                  style: const TextStyle(
-                    color: orange,
-                    fontFamily: 'Lato',
-                    fontSize: 20,
+                FittedBox(
+                  child: Text(
+                    stageName,
+                    style: const TextStyle(
+                      color: orange,
+                      fontFamily: 'Lato',
+                      fontSize: 20,
+                    ),
                   ),
                 ),
                 Text(

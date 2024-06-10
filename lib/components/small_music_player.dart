@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:audioplayers/audioplayers.dart';
 
+import 'package:all_about_music/models/music.dart';
 import 'package:all_about_music/utils/colors.dart';
 
 class SmallMusicPlayer extends StatefulWidget {
-  final String songId;
-  const SmallMusicPlayer(this.songId, {super.key});
+  final Music music;
+  const SmallMusicPlayer(this.music, {super.key});
 
   @override
   State<SmallMusicPlayer> createState() => _SmallMusicPlayerState();
 }
 
 class _SmallMusicPlayerState extends State<SmallMusicPlayer> {
-  late String _title;
-  late String _author;
-  late String? _coverUrl;
-  late String _songUrl;
   bool _isLoading = true;
 
   final AudioPlayer _audioPlayer = AudioPlayer();
@@ -31,13 +27,7 @@ class _SmallMusicPlayerState extends State<SmallMusicPlayer> {
   }
 
   void getData() async {
-    Map<String, dynamic> snap = (await FirebaseFirestore.instance
-        .collection('demos').doc(widget.songId).get()).data()!;
-    _title = snap['title'];
-    _author = snap['author'];
-    _coverUrl = snap['coverUrl'];
-    _songUrl = snap['songUrl'];
-    _audioPlayer.setSourceUrl(_songUrl);
+    _audioPlayer.setSourceUrl(widget.music.songUrl);
     setState(() {
       _isLoading = false;
     });
@@ -73,15 +63,18 @@ class _SmallMusicPlayerState extends State<SmallMusicPlayer> {
       child: Row(
         children: [
           GestureDetector(
-            onTap: () => context.push('/song${widget.songId}'),
+            onTap: () => context.push('/song/${widget.music.songId}'),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(16),
               child: Container(
                 height: double.infinity,
                 color: grey,
-                child: _isLoading || _coverUrl == null ? null : Image(
-                  image: NetworkImage(_coverUrl!),
-                  fit: BoxFit.cover,
+                child: _isLoading || widget.music.coverUrl == null ? null : AspectRatio(
+                  aspectRatio: 1,
+                  child: Image(
+                    image: NetworkImage(widget.music.coverUrl!),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
@@ -98,9 +91,9 @@ class _SmallMusicPlayerState extends State<SmallMusicPlayer> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       GestureDetector(
-                        onTap: () => context.push('/song${widget.songId}'),
+                        onTap: () => context.push('/song/${widget.music.songId}'),
                         child: Text(
-                          _title,
+                          widget.music.title,
                           style: const TextStyle(
                             color: white,
                             fontFamily: 'Lato',
@@ -112,7 +105,7 @@ class _SmallMusicPlayerState extends State<SmallMusicPlayer> {
                       GestureDetector(
                         onTap: () {},
                         child: Text(
-                          _author,
+                          widget.music.author,
                           style: const TextStyle(
                             color: grey,
                             fontFamily: 'Lato',

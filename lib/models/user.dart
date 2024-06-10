@@ -15,6 +15,16 @@ class User {
     required this.following,
   });
 
+  factory User.fromMap(Map<String, dynamic> data) {
+    return User(
+      uid: data['uid'],
+      email: data['email'],
+      firstName: data['firstName'],
+      lastName: data['lastName'],
+      following: List<String>.from(data['following']),
+    );
+  }
+
   Map<String, dynamic> toMap() => {
     'uid': uid,
     'email': email,

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:all_about_music/utils/colors.dart';
 
-enum FieldType { email, password, firstName, lastName, phone, stageName, bio, custom }
+enum FieldType { email, password, firstName, lastName, phone, stageName, bio, description, custom }
 
 class Field extends StatelessWidget {
   final TextEditingController controller;
@@ -28,6 +28,7 @@ class Field extends StatelessWidget {
               FieldType.phone => 'PHONE',
               FieldType.stageName => 'STAGE NAME',
               FieldType.bio => 'ARTIST BIO',
+              FieldType.description => 'DESCRIPTION',
               FieldType.custom => text!,
             },
             style: const TextStyle(
@@ -77,7 +78,7 @@ class Field extends StatelessWidget {
                     FieldType.phone => TextInputType.phone,
                     _ => TextInputType.text
                   },
-                  maxLines: type == FieldType.bio ? 4 : 1,
+                  maxLines: type == FieldType.bio || type == FieldType.description ? 4 : 1,
                   obscureText: type == FieldType.password,
                   obscuringCharacter: '*',
                   style: const TextStyle(

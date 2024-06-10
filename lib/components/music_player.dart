@@ -3,24 +3,20 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 import 'package:audioplayers/audioplayers.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'package:all_about_music/models/music.dart';
 import 'package:all_about_music/utils/colors.dart';
 
 class MusicPlayer extends StatefulWidget {
-  final String songId;
+  final Music music;
   final VoidCallback? onTap;
-  const MusicPlayer(this.songId, {this.onTap, super.key});
+  const MusicPlayer(this.music, {this.onTap, super.key});
 
   @override
   State<MusicPlayer> createState() => _MusicPlayerState();
 }
 
 class _MusicPlayerState extends State<MusicPlayer> {
-  late String _title;
-  late String _author;
-  late String? _coverUrl;
-  late String _songUrl;
   bool _isLoading = true;
 
   final AudioPlayer _audioPlayer = AudioPlayer();
@@ -36,13 +32,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
   }
 
   void getData() async {
-    Map<String, dynamic> snap = (await FirebaseFirestore.instance
-        .collection('demos').doc(widget.songId).get()).data()!;
-    _title = snap['title'];
-    _author = snap['author'];
-    _coverUrl = snap['coverUrl'];
-    _songUrl = snap['songUrl'];
-    _audioPlayer.setSourceUrl(_songUrl);
+    _audioPlayer.setSourceUrl(widget.music.songUrl);
     _audioPlayer.onDurationChanged.listen((Duration duration) {
       setState(() {
         _duration = duration;
@@ -57,7 +47,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
     });
     _audioPlayer.onPlayerComplete.listen((_) {
       _stop();
-      _audioPlayer.setSourceUrl(_songUrl);
+      _audioPlayer.setSourceUrl(widget.music.songUrl);
     });
 
     setState(() {
@@ -109,13 +99,13 @@ class _MusicPlayerState extends State<MusicPlayer> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          gradient: _isLoading || _coverUrl != null ? null : const LinearGradient(
+          gradient: _isLoading || widget.music.coverUrl != null ? null : const LinearGradient(
             colors: [orange2, darkOrange],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
-          image: _isLoading || _coverUrl == null ? null : DecorationImage(
-            image: NetworkImage(_coverUrl!),
+          image: _isLoading || widget.music.coverUrl == null ? null : DecorationImage(
+            image: NetworkImage(widget.music.coverUrl!),
             fit: BoxFit.cover
           ),
         ),
@@ -151,7 +141,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    _title,
+                                    widget.music.title,
                                     style: const TextStyle(
                                       fontFamily: 'Montserrat',
                                       fontSize: 17,
@@ -159,7 +149,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
                                     ),
                                   ),
                                   Text(
-                                    _author,
+                                    widget.music.author,
                                     style: const TextStyle(
                                       fontFamily: 'Montserrat',
                                       fontSize: 10,

@@ -9,8 +9,6 @@ import 'package:uuid/uuid.dart';
 import 'package:all_about_music/models/user.dart' as model;
 import 'package:all_about_music/models/artist.dart';
 
-
-
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 final FirebaseStorage _storage = FirebaseStorage.instance;
@@ -115,13 +113,14 @@ Future<String> artistSignup({
 
 Future<String> uploadDemo({
   required String title,
+  required String description,
   required String author,
   required Uint8List? demo,
   required Uint8List? cover,
   String? votesCount,
 }) async {
   try {
-    if (title.isNotEmpty && author.isNotEmpty && demo != null && (votesCount == null || int.tryParse(votesCount) != null)) {
+    if (title.isNotEmpty && description.isNotEmpty && author.isNotEmpty && demo != null && (votesCount == null || int.tryParse(votesCount) != null)) {
       String songId = const Uuid().v1();
       String songUrl = await uploadSong('songs', demo, songId);
       String? coverUrl = cover != null ? await uploadSong('covers', cover, songId) : null;
@@ -129,6 +128,7 @@ Future<String> uploadDemo({
         songId: songId,
         uid: _auth.currentUser!.uid,
         title: title,
+        description: description,
         author: author,
         songUrl: songUrl,
         coverUrl: coverUrl,
@@ -159,7 +159,58 @@ Future<String> uploadSong(String childName, Uint8List file, String songId) async
   return await snap.ref.getDownloadURL();
 }
 
+Future<Artist> getArtist(String uid) async {
+  DocumentSnapshot<Map<String, dynamic>> snap = await _firestore.collection('artists').doc(uid).get();
+  return Artist.fromMap(snap.data()!);
+}
+
+Future<model.User> getUser(String uid) async {
+  DocumentSnapshot<Map<String, dynamic>> snap = await _firestore.collection('users').doc(uid).get();
+  return model.User.fromMap(snap.data()!);
+}
+
+Future<Music> getMusic(String songId) async {
+  DocumentSnapshot<Map<String, dynamic>> snap = await _firestore.collection('demos').doc(songId).get();
+  return Music.fromMap(snap.data()!);
+}
+
+Future<List<Music>> getTopDemos({int limit = 5}) async {
+  QuerySnapshot<Map<String, dynamic>> snap = await _firestore
+      .collection('demos')
+      .orderBy('votesCount', descending: true)
+      .limit(limit)
+      .get();
+  return snap.docs.map((doc) => Music.fromMap(doc.data())).toList();
+}
+
+Future<List<Music>> getRecentDemos({int limit = 15}) async {
+  QuerySnapshot<Map<String, dynamic>> snap = await _firestore
+      .collection('demos')
+      .orderBy('timestamp', descending: true)
+      .limit(limit)
+      .get();
+  return snap.docs.map((doc) => Music.fromMap(doc.data())).toList();
+}
+
+Future<List<Artist>> getTopArtists({int limit = 5}) async {
+  QuerySnapshot<Map<String, dynamic>> snap = await _firestore
+      .collection('artists')
+      .orderBy('followerCount', descending: true)
+      .limit(limit)
+      .get();
+  return snap.docs.map((doc) => Artist.fromMap(doc.data())).toList();
+}
+
 Future<bool> isArtist() async {
   DocumentSnapshot snap = await FirebaseFirestore.instance.collection('artists').doc(FirebaseAuth.instance.currentUser!.uid).get();
   return snap.exists;
+}
+
+Future<int> getDemoRank(final String songId) async {
+  QuerySnapshot<Map<String, dynamic>> snap = await _firestore
+      .collection('demos')
+      .orderBy('votesCount', descending: true)
+      .get();
+  List<String> demos = List<String>.from(snap.docs.map((doc) => doc['songId']).toList());
+  return demos.indexOf(songId) + 1;
 }

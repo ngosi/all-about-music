@@ -10,6 +10,7 @@ class Button extends StatelessWidget {
   final Color borderColor;
   final bool textOrange;
   final double height;
+  final double width;
   final double? borderRadius;
   const Button(
     this.text,
@@ -20,6 +21,7 @@ class Button extends StatelessWidget {
       this.borderColor = grey,
       this.textOrange = false,
       this.height = 60,
+      this.width = double.infinity,
       this.borderRadius,
     }
   );
@@ -38,7 +40,7 @@ class Button extends StatelessWidget {
         ),
       ),
       child: SizedBox(
-        width: double.infinity,
+        width: width,
         height: height,
         child: FilledButton(
           onPressed: onPressed,

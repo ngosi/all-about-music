@@ -27,6 +27,22 @@ class Artist {
     required this.messages,
   });
 
+  factory Artist.fromMap(Map<String, dynamic> data) {
+    return Artist(
+      stageName: data['stageName'],
+      bio: data['bio'],
+      country: data['country'],
+      state: data['state'],
+      city: data['city'],
+      bannerUrl: data['bannerUrl'],
+      cardUrl: data['cardUrl'],
+      demos: List<String>.from(data['demos']),
+      followers: List<String>.from(data['followers']),
+      followerCount: data['followerCount'],
+      messages: List<String>.from(data['messages']),
+    );
+  }
+
   Map<String, dynamic> toMap() => {
     'stageName': stageName,
     'bio': bio,

@@ -1,6 +1,6 @@
+import 'package:all_about_music/utils/firebase_functions.dart';
 import 'package:flutter/material.dart';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -9,6 +9,8 @@ import 'package:all_about_music/components/card.dart';
 import 'package:all_about_music/components/music_player.dart';
 import 'package:all_about_music/components/small_music_player.dart';
 import 'package:all_about_music/utils/colors.dart';
+import 'package:all_about_music/models/music.dart';
+import 'package:all_about_music/models/artist.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,11 +21,9 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController _searchController = TextEditingController();
-  final List<String> _topDemos = [];
-  final List<String> _artistCardUrls = [];
-  final List<String> _artistNames = [];
-  final List<int> _artistFollowers = [];
-  final List<String> _recentDemos = [];
+  late List<Music> _topDemos;
+  late List<Artist> _topArtists;
+  late List<Music> _recentDemos;
   bool _isLoading = true;
 
   @override
@@ -33,33 +33,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void getData() async {
-    QuerySnapshot<Map<String, dynamic>> snap = await FirebaseFirestore.instance
-        .collection('demos').orderBy('votesCount', descending: true).get();
-    int limit = 4;
-    for (final doc in snap.docs) {
-      _topDemos.add(doc.data()['songId']);
-      if (limit == 0) {
-        break;
-      }
-      limit--;
-    }
-    snap = await FirebaseFirestore.instance
-        .collection('artists').orderBy('followerCount', descending: true).get();
-    limit = 4;
-    for (final doc in snap.docs) {
-      _artistCardUrls.add(doc.data()['cardUrl']);
-      _artistNames.add(doc.data()['stageName']);
-      _artistFollowers.add(doc.data()['followerCount']);
-      if (limit == 0) {
-        break;
-      }
-      limit--;
-    }
-    snap = await FirebaseFirestore.instance
-        .collection('demos').orderBy('timestamp', descending: true).get();
-    for (final doc in snap.docs) {
-      _recentDemos.add(doc.data()['songId']);
-    }
+    _topDemos = await getTopDemos();
+    _topArtists = await getTopArtists();
+    _recentDemos = await getRecentDemos();
     setState(() {
       _isLoading = false;
     });
@@ -136,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemBuilder: (context, index) {
                         return Row(
                           children: [
-                            MusicPlayer(_topDemos[index], onTap: () => context.push('/song/${_topDemos[index]}')),
+                            MusicPlayer(_topDemos[index], onTap: () => context.push('/song/${_topDemos[index].songId}')),
                             const SizedBox(width: 24),
                           ],
                         );
@@ -235,14 +211,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 250,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: _artistCardUrls.length,
+                      itemCount: _topArtists.length,
                       itemBuilder: (context, index) {
                         return Row(
                           children: [
                             ArtistCard(
-                              cardUrl: _artistCardUrls[index],
-                              artistName: _artistNames[index],
-                              followerCount: _artistFollowers[index],
+                              cardUrl: _topArtists[index].cardUrl,
+                              stageName: _topArtists[index].stageName,
+                              followerCount: _topArtists[index].followerCount,
                             ),
                             const SizedBox(width: 24),
                           ],
@@ -312,11 +288,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   Padding(
                     padding: const EdgeInsets.only(top: 12, bottom: 32, right: 24),
                     child: Column(
-                      children: _recentDemos.map((songId) {
-                        int index = _recentDemos.indexOf(songId);
+                      children: _recentDemos.map((demo) {
+                        int index = _recentDemos.indexOf(demo);
                         return Column(
                           children: [
-                            SmallMusicPlayer(songId),
+                            SmallMusicPlayer(demo),
                             if (index != _recentDemos.length - 1)
                               const SizedBox(height: 12),
                           ],

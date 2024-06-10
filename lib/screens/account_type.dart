@@ -39,7 +39,7 @@ class AccountTypeScreen extends StatelessWidget {
                   const SizedBox(height: 20),
                   Button(
                     "I'M A FAN",
-                    () => context.go('/fan'),
+                    () => context.go('/profile'),
                     fillOrange: false,
                     borderColor: yellow,
                   ),

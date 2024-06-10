@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:all_about_music/components/button.dart';
 import 'package:all_about_music/components/field.dart';
-import 'package:all_about_music/utils/firebase_methods.dart';
+import 'package:all_about_music/utils/firebase_functions.dart';
 import 'package:all_about_music/utils/utils.dart';
 import 'package:all_about_music/utils/colors.dart';
 
@@ -19,6 +19,7 @@ class UploadDemoScreen extends StatefulWidget {
 
 class _UploadDemoScreenState extends State<UploadDemoScreen> {
   final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _authorController = TextEditingController();
   final TextEditingController _votesController = TextEditingController();
   bool _isLoading = false;
@@ -31,6 +32,7 @@ class _UploadDemoScreenState extends State<UploadDemoScreen> {
     });
     String result = await uploadDemo(
       title: _titleController.text,
+      description: _descriptionController.text,
       author: _authorController.text,
       demo: _demo,
       cover: _cover,
@@ -67,7 +69,9 @@ class _UploadDemoScreenState extends State<UploadDemoScreen> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          height: MediaQuery.of(context).size.height,
+          constraints: BoxConstraints(
+            minHeight: MediaQuery.of(context).size.height,
+          ),
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [darkGrey2, darkGrey4],
@@ -87,7 +91,7 @@ class _UploadDemoScreenState extends State<UploadDemoScreen> {
                         child: const Icon(Icons.arrow_back, color: orange),
                       ),
                       const Align(
-                        alignment: Alignment.bottomCenter,
+                        alignment: Alignment.center,
                         child: Text(
                           'UPLOAD DEMO',
                           style: TextStyle(
@@ -120,7 +124,8 @@ class _UploadDemoScreenState extends State<UploadDemoScreen> {
                   ),
                   Field(_titleController, FieldType.custom, text: 'TITLE'),
                   Field(_authorController, FieldType.custom, text: 'AUTHOR'),
-                  const Spacer(),
+                  Field(_descriptionController, FieldType.description),
+                  const SizedBox(height: 24),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: Row(
@@ -152,7 +157,7 @@ class _UploadDemoScreenState extends State<UploadDemoScreen> {
                     controller: _votesController,
                     style: const TextStyle(color: grey),
                   ),
-                  const Spacer(),
+                  const SizedBox(height: 24),
                   Button('Upload', () => _submit(), isLoading: _isLoading),
                 ],
               ),

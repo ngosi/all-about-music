@@ -7,8 +7,8 @@ import 'package:go_router/go_router.dart';
 
 import 'package:all_about_music/components/button.dart';
 import 'package:all_about_music/components/field.dart';
+import 'package:all_about_music/utils/firebase_functions.dart';
 import 'package:all_about_music/utils/colors.dart';
-import 'package:all_about_music/utils/firebase_methods.dart';
 import 'package:all_about_music/utils/utils.dart';
 
 class ArtistSignupScreen extends StatefulWidget {
