@@ -44,11 +44,11 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   void dispose() {
-    super.dispose();
     _firstNameController.dispose();
     _lastNameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    super.dispose();
   }
 
   @override

@@ -41,9 +41,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
-    super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -51,7 +51,9 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          height: MediaQuery.of(context).size.height,
+          constraints: BoxConstraints(
+            minHeight: MediaQuery.of(context).size.height,
+          ),
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [darkGrey2, darkGrey4],
@@ -61,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           child: SafeArea(
             child: Padding(
-              padding: const EdgeInsets.all(40),
+              padding: const EdgeInsets.all(40).copyWith(bottom: 0),
               child: Column(
                 children: [
                   Stack(
@@ -145,8 +147,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   Button('Login', login, isLoading: _isLoading),
-                  const Spacer(),
+                  const SizedBox(height: 48),
                   Button('Sign Up', () => context.go('/signup'), fillOrange: false),
+                  const SizedBox(height: 36),
                 ],
               ),
             ),

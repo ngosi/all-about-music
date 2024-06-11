@@ -27,11 +27,6 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return const Image(
       image: AssetImage('assets/images/splash.png'),

@@ -194,7 +194,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ],
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      padding: const EdgeInsets.only(bottom: 12),
                       child: Text(
                         _artist.bio,
                         textAlign: TextAlign.justify,

@@ -36,11 +36,18 @@ class App extends StatelessWidget {
     return MaterialApp.router(
       routerConfig: Routes.router,
       debugShowCheckedModeBanner: false,
+      // showPerformanceOverlay: kDebugMode,
       title: 'AllAboutMusic',
       theme: ThemeData(
         useMaterial3: true,
         colorSchemeSeed: orange,
       ),
+      builder: (context, child) {
+        return ScrollConfiguration(
+          behavior: const ScrollBehavior(),
+          child: child!,
+        );
+      },
     );
   }
 }

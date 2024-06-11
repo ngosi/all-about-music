@@ -6,10 +6,12 @@ class DiagonalContainerContents extends StatelessWidget {
   final List<Widget>? contents;
   final bool doubleBorder;
   final bool hasLine;
+  final CrossAxisAlignment crossAxisAlignment;
   const DiagonalContainerContents({
     this.contents,
     this.doubleBorder = false,
     this.hasLine = true,
+    this.crossAxisAlignment = CrossAxisAlignment.start,
     super.key,
   });
 
@@ -33,7 +35,7 @@ class DiagonalContainerContents extends StatelessWidget {
             ),
             Expanded(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: crossAxisAlignment,
                 children: modifiedContents.isEmpty
                   ? [Container()]
                   : modifiedContents,

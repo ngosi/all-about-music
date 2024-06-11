@@ -159,7 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   '10:20:20',
                                   style: TextStyle(
                                     color: blueishGrey,
-                                    fontSize: 20
+                                    fontSize: 20,
                                   ),
                                 ),
                               ],

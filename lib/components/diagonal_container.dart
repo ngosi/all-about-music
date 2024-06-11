@@ -11,6 +11,7 @@ class DiagonalContainer extends StatelessWidget {
   final BoxDecoration decoration;
   final bool defaultBorder;
   final bool doubleBorder;
+  final CrossAxisAlignment crossAxisAlignment;
   const DiagonalContainer({
     this.child = const DiagonalContainerContents(),
     this.contents,
@@ -25,6 +26,7 @@ class DiagonalContainer extends StatelessWidget {
     ),
     this.defaultBorder = true,
     this.doubleBorder = false,
+    this.crossAxisAlignment = CrossAxisAlignment.start,
     super.key,
   });
 
@@ -40,7 +42,7 @@ class DiagonalContainer extends StatelessWidget {
           decoration: decoration,
           child: contents == null
             ? child
-            : DiagonalContainerContents(contents: contents),
+            : DiagonalContainerContents(contents: contents, crossAxisAlignment: crossAxisAlignment),
         ),
       ),
     );
